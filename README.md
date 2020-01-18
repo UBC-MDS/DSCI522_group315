@@ -1,4 +1,4 @@
-# UFC Fight Analysis
+# UFC Judge Scoring Analysis
 
 ### Background
 
@@ -14,11 +14,11 @@ A UFC match involves two opposing athletes fighting over three rounds (five roun
 
 ### Is the UFC Fair?
 
-The UFC is a relatively new sport, and the rules are still evolving. One common source of controversy is the outcome of the fight when it goes to the judges score card. UFC personalities and fighters often take to the web after fights to complain about poor juding decisions. The Bleacher Report wrote an article in 2014 highlight [The 10 Most Controversial Judging Decisions in UFC History](https://bleacherreport.com/articles/2072171-the-10-most-controversial-judging-decisions-in-ufc-history#slide0).
+The UFC is a relatively new sport, and the rules are still evolving. One common source of controversy is the outcome of the fight when it goes to the judges score card. UFC personalities and fighters often take to the web after fights to complain about poor judging decisions. The Bleacher Report wrote an article in 2014 highlight [The 10 Most Controversial Judging Decisions in UFC History](https://bleacherreport.com/articles/2072171-the-10-most-controversial-judging-decisions-in-ufc-history#slide0).
 
 So how do judges score a fight? The system is somewhat confusing, but here are the basics:
 
-- Judges score each round on a "*10-Point Must Sytem*".
+- Judges score each round on a "*10-Point Must System*".
 
 - The fighter deemed to have won the round receives 10 points.
 
@@ -30,15 +30,24 @@ So how do judges score a fight? The system is somewhat confusing, but here are t
 
   > - "*A 10 –10 round in MMA is when both fighters have competed for whatever duration of time in the round and there is no difference or advantage between either fighter.*”
   > - “*A 10 –9 Round in MMA is where one combatant wins the round by a close margin.*”
-  > - ""*A 10 –8 Round in MMA is where one fighter wins the round by a largemargin.*"
+  > - ""*A 10 –8 Round in MMA is where one fighter wins the round by a large margin.*"
 
 Based on a reading of the rules and general concensus from MMA personalities, it is clear that judging is very subjective. Our analysis seeks to understand if judging is fair.
 
 ### Research Question
 
-**For fights that do not end in submission or TKO, what are the strongest predictors of who will win the fight?**
+We have identified our main research question as:
 
-By answer the stated research question we hope to gain more insight into the fairness of UFC judging. Some possible outcomes of the analysis may be:
+> **For fights that do not end in submission or TKO, what are the strongest predictors of who will win the fight?**
+
+This is a predictive question.
+
+Some natural questions that stem from our main research question are:
+
+- Do judges award higher scores for striking (e.g. punching and kicking) over grappling (e.g. wrestling and submission attempts)
+- Do judges award higher scores for
+
+By answering the stated research question we hope to gain more insight into the fairness of UFC judging. Some possible outcomes of the analysis may be:
 
 1. Several predictors were identified as strongly correlating to victory by decision. The judges consitnetly award a fighter for performing well in these areas. This would suggest that UFC judging is fair.
 
@@ -74,10 +83,5 @@ By answer the stated research question we hope to gain more insight into the fai
 
 #### Data
 
-The original data was obtained from Kaggle user [Rajeev Warrier](https://www.kaggle.com/rajeevw) and can be found here:
-
-https://www.kaggle.com/rajeevw
-
-The data has also been downloaded and uploaded to a GitHub repo to avoid issues for users whom do not have a kaggle account:
-
-https://github.com/SamEdwardes/ufc-data
+- The original data was obtained from Kaggle user [Rajeev Warrier](https://www.kaggle.com/rajeevw) and can be found here: https://www.kaggle.com/rajeevw
+- The data has also been downloaded and uploaded to a GitHub repo to avoid issues for users whom do not have a kaggle account: https://github.com/SamEdwardes/ufc-data
