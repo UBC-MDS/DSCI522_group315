@@ -163,6 +163,6 @@ main <- function(data_path, fight_details_path, output_path, seed_num) {
 main(
   data_path = arguments$data_path,
   fight_details_path = arguments$fight_details_path,
-  output_path = arguments$output_path,
+  output_path = "data/02_preprocessed/",
   seed_num = arguments$seed_num
 )
