@@ -53,7 +53,8 @@ main <- function(data_path, fight_details_path, output_path, seed_num) {
     filter(
       win_by == "Decision - Majority" |
         win_by == "Decision - Split" |
-        win_by == "Decision - Unanimous"
+        win_by == "Decision - Unanimous",
+      winner != "Draw"
     ) %>%
     # In some cases both fighers have 0 for a feature. This will have resulted in an
     # NaN because 0 / 0 evaluates to NaN. However, the correct number should be 0.5
