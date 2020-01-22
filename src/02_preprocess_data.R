@@ -13,7 +13,7 @@ Options:
 --output_path=<output_path>
 --seed_num=<seed_num> The seed to set random state [default: 1993]
 
-Example: Rscript src/02_preprocess_data.R --data_path=data/01_raw/data.csv --fight_details_path=data/01_raw/raw_total_fight_data.csv --output_path=data/02_preprocessed/ seed_num=1993
+Example: Rscript src/02_preprocess_data.R --data_path=data/01_raw/data.csv --fight_details_path=data/01_raw/raw_total_fight_data.csv --output_path=data/02_preprocessed/ --seed_num=1993
 " -> doc
 
 suppressPackageStartupMessages(library(tidyverse))
@@ -156,13 +156,19 @@ main <- function(data_path, fight_details_path, output_path, seed_num) {
   write_csv(y_train, paste0(output_path, "y_train.csv"))
   write_csv(X_test, paste0(output_path, "X_test.csv"))
   write_csv(y_test, paste0(output_path, "y_test.csv"))
-
+  
+  print("Training data dimensions:")
+  print(dim(X_train))
+  print("Testing data dimensions:")
+  print(dim(X_test))
+  print("Complete data set dimensions:")
+  print(dim(bind_rows(X_train, X_test)))
   print("Script complete.")
 }
 
 main(
   data_path = arguments$data_path,
   fight_details_path = arguments$fight_details_path,
-  output_path = "data/02_preprocessed/",
+  output_path = arguments$output_path,
   seed_num = arguments$seed_num
 )
