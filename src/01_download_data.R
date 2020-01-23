@@ -9,21 +9,15 @@ Options:
 --url=<url>              URL of the data (in csv format)
 --out_file=<out_file>    Path (including filename) to locally save the file
 
-Example: Rscript 01_download_data.R --url https://github.com/SamEdwardes/ufc-data/raw/master/data.csv --out_file /Users/username/Desktop/Block4/filename.csv
+Example: Rscript 01_download_data.R --url=https://github.com/SamEdwardes/ufc-data/raw/master/raw_total_fight_data.csv --out_file=data/01_raw/raw_total_fight_data.csv
 
 " -> doc
 
-library(RCurl)
 library(docopt)
 
 opt <- docopt(doc)
 
 main <- function(url, out_file){
- 
-   if (url.exists(url)==FALSE){
-       stop("url doesn't exist")
-     }
-  
     download.file(url = url, destfile = out_file)
 }
 
