@@ -2,6 +2,7 @@
 # Added by Sam Edwardes
 #############################
 se_files/*
+*.Rproj
 
 #############################
 # R files
