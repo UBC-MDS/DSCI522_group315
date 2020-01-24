@@ -3,7 +3,7 @@
 
 """Conducts feature selection and then data analysis for the UFC data.
 
-Usage: src/03_ml_analysis.py --input_path_Xtrain=<input_path_Xtrain> --input_path_ytrain=<input_path_ytrainh> --input_path_Xtest=<input_path_Xtest> --input_path_ytest=<input_path_ytest> --out_type=<out_type> --out_path=<out_path>
+Usage: src/04_ml_analysis.py --input_path_Xtrain=<input_path_Xtrain> --input_path_ytrain=<input_path_ytrainh> --input_path_Xtest=<input_path_Xtest> --input_path_ytest=<input_path_ytest> --out_path=<out_path> --out_path_csv=<out_path_csv>
 
 Options:
 
@@ -13,9 +13,10 @@ Options:
 --input_path_yttest=<input_path_ytest>           The path of y_test.csv
 --out_type=<out_type>               Type of file to write locally (script supports either feather or csv)
 --out_path=<output_path>         The path of the directory to save output to
+--out_path_csv=<output_path_csv>         The path of the directory to save output to for csvs
 
 
-Example: python src/03_ml_analysis.py --input_path_Xtrain=data/02_preprocessed/X_train.csv --input_path_ytrain=data/02_preprocessed/y_train.csv --input_path_Xtest=data/02_preprocessed/X_test.csv --input_path_ytest=data/02_preprocessed/y_test.csv --out_type=csv --out_path=data/analysis.png
+Example: python src/04_ml_analysis.py --input_path_Xtrain=data/02_preprocessed/X_train.csv --input_path_ytrain=data/02_preprocessed/y_train.csv --input_path_Xtest=data/02_preprocessed/X_test.csv --input_path_ytest=data/02_preprocessed/y_test.csv --out_path=analysis/figures/ --out_path_csv=analysis/
 """
 
 from docopt import docopt
@@ -35,28 +36,30 @@ import altair as alt
 from selenium import webdriver
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
+from sklearn.metrics import plot_confusion_matrix
+import matplotlib.pyplot as plt
 
 #import feather
 
 opt = docopt(__doc__)
 
-def main(input_path_Xtrain, input_path_ytrain, input_path_Xtest, input_path_ytest, out_type, out_path):
+def main(input_path_Xtrain, input_path_ytrain, input_path_Xtest, input_path_ytest, out_path, out_path_csv):
   
-  # DATA Importing
+  # DATA IMPORTING
   # Import data from the data folder based on the output of 02_preprocess_data.R
   X_train = pd.read_csv(input_path_Xtrain)
   y_train = pd.read_csv(input_path_ytrain)
   X_test = pd.read_csv(input_path_Xtest)
   y_test = pd.read_csv(input_path_ytest)
   
+  # FEATURE SELECTION
   # run a grid search to find x number of important features
   lr = LogisticRegression(solver='liblinear')
   rfe_cv = RFECV(estimator = lr, cv=10)
   rfe_cv.fit(X_train, y_train)
-  print('Number of selected features %d'%rfe_cv.n_features_)
-  print('Feature mask: ', rfe_cv.support_)
   rfe_cv.support_
 
+  # MODEL BUILDING
   # set up models for comparison on regular data and selected features
   lr_normal = LogisticRegression(solver='liblinear')
   lr_select = LogisticRegression(solver='liblinear')
@@ -87,6 +90,7 @@ def main(input_path_Xtrain, input_path_ytrain, input_path_Xtest, input_path_ytes
     lr_normal.score(X_test, y_test), lr_select.score(X_test_sel, y_test)]
   results = pd.DataFrame({'Model' : models, 'Score' : scores})
   
+  # PLOTTING NUMBER OF FEATURES
   # Create a plot comparing the training error to test error for a given number of features. 
   max_dict = {'n_features_to_select':[], 'train_error':[],'validation_error':[]}
   
@@ -112,23 +116,19 @@ def main(input_path_Xtrain, input_path_ytrain, input_path_Xtest, input_path_ytes
   ).properties(
       title='Error vs Number of Features')
   
-  # Classification report on the X test values
-  X_pred = lr_select.predict(X_test_sel)
-
-  print(classification_report(X_pred, y_test))
+  # Confusion Matrix on the X test values
+  disp = plot_confusion_matrix(lr_select, X_test_sel, y_test,
+                             display_labels=['Blue wins', 'Red Wins', 'Blue Wins', 'Red Wins'],
+                             cmap=plt.cm.Blues, 
+                             values_format = 'd')
+  disp.ax_.set_title('Confusion Matrix for Predicted Winner')
   
-  print(weight_df)
-  print(results)
-  data = pd.DataFrame(max_dict)
-
-  plot.save(out_path, scale_factor=20)
-  
-  #if out_type == "csv":
-  #  try:
-  #    data.to_csv(out_path, index = False)
-  #  except:
-  #    os.makedirs(os.path.dirname(out_path))
-  #    data.to_csv(out_path, index = False)
+  # PRINT FILES
+  # Files Outputting from analysis
+  plt.savefig(out_path + "confusion_matrix.png")
+  plot.save(out_path + "error.png", scale_factor=20)
+  weight_df.to_csv(out_path_csv + "weights.csv", index = False)
+  results.to_csv(out_path_csv + "results.csv", index = False)
 
 if __name__ == "__main__":
-  main(opt["--input_path_Xtrain"], opt["--input_path_ytrain"], opt["--input_path_Xtest"], opt["--input_path_ytest"], opt["--out_type"], opt["--out_path"])
+  main(opt["--input_path_Xtrain"], opt["--input_path_ytrain"], opt["--input_path_Xtest"], opt["--input_path_ytest"],  opt["--out_path"], opt["--out_path_csv"])
