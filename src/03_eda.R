@@ -4,28 +4,30 @@
 "
 This script creates EDA plots and tables.
 
-Usage: 03_eda.R --input_path=<input_path> --output_path=<output_path> --seed_num=<seed_num>
+Usage: 03_eda.R --X_train_path=<X_train_path> --y_train_path=<y_train_path> --out_dir=<out_dir>
 
 Options:
---input_path=<input_path>           The path of raw_total_fight_data.csv
---output_path=<output_path>         The path of the directory to save output to
---seed_num=<seed_num>               The seed to set random state
+--X_train_path=<X_train_path>           Path of the training data features
+-y_train_path=<y_train_path>            Path of the training data targets
+--out_dir=<out_dir>                     Directory path to export figures
 
-Example: Rscript src/02_preprocess_data.R --input_path=data/01_raw/raw_total_fight_data.csv --output_path=data/02_preprocessed/ --seed_num=1993
+Example: 
+Rscript src/03_eda.R --X_train_path=data/02_preprocessed/X_train.csv --y_train_path=data/02_preprocessed/y_train.csv --out_dir=analysis/figures/
 " -> doc
 
+suppressPackageStartupMessages(library(docopt))
 suppressPackageStartupMessages(library(tidyverse))
 
-out_dir <- "analysis/figures/"
+arguments <- docopt(doc)
 
 #////////////////////////////////////
 # Feature seleciton
 #////////////////////////////////////
 
 striking_features <- c("sig_str_att", "sig_str_landed", "sig_str_pct",
-  "total_str_att",  "total_str_landed")
+  "total_str_att", "total_str_landed")
 
-ground_features <- c( "td_att", "td_landed", "td_pct", "sub_att", "pass", "rev")
+ground_features <- c("td_att", "td_landed", "td_pct", "sub_att", "pass", "rev")
 
 attacks_to_features <- c("head_att", "head_landed", "body_att", "body_landed",
   "leg_att", "leg_landed")
@@ -37,9 +39,17 @@ attacks_from_features <- c("distance_att", "distance_landed", "clinch_att",
 # Helper functions
 #////////////////////////////////////
 
-get_df <- function() {
-  X_train <- read_csv("data/02_preprocessed/X_train.csv", col_types = cols())
-  y_train <- read_csv("data/02_preprocessed/y_train.csv", col_types = cols())
+#' Create data frame for plots
+#'
+#' @param X_train_path The path to X_training csv file (string)
+#' @param y_train_path The path to y_training csv file (string)
+#' 
+#' @return tibble of joined X_train and y_train data
+#' 
+#' @examples get_df("data/X_train.csv", "data/y_train.csv")
+get_df <- function(X_train_path, y_train_path) {
+  X_train <- read_csv(X_train_path, col_types = cols())
+  y_train <- read_csv(y_train_path, col_types = cols())
   
   df <- bind_cols(X_train, y_train) %>%
     mutate(
@@ -50,11 +60,22 @@ get_df <- function() {
   df
 }
 
-make_cor_plot <- function() {
+#' Make correlation plot
+#'
+#' @param df Dataframe containing features (tibble)
+#'
+#' @return ggplot object
+make_cor_plot <- function(df) {
   cor_plot <- GGally::ggcorr(df, size = 3, hjust = 0.85, layout.exp = 2)
+  cor_plot
 }
 
-make_class_count_bar_plot <- function() {
+#' Make bar plot of outcomes
+#'
+#' @param df Dataframe containing features (tibble)
+#'
+#' @return ggplot object
+make_class_count_bar_plot <- function(df) {
   df %>%
     ggplot(aes(winner)) +
     geom_bar() +
@@ -63,6 +84,16 @@ make_class_count_bar_plot <- function() {
          y = "Count")
 }
 
+#' Make box jitter plot
+#' 
+#' Creates jitter plot overlayed with a box plot. For each feature included in
+#' ... the plot is faceted
+#'
+#' @param df Dataframe containing features (tibble)
+#' @param response The target or y value (string or column name)
+#' @param ... Additional column names
+#'
+#' @return ggplot object
 make_box_jitter_plot <- function(df, response, ...) {
   df <- df %>%
     select({{ response }}, ...) %>%
@@ -92,6 +123,11 @@ make_box_jitter_plot <- function(df, response, ...) {
     coord_flip()
 }
 
+#' Make dataframe summary
+#'
+#' @param df Dataframe containing features (tibble)
+#'
+#' @return Dataframe of summary statistics for each numeric column (tibble)
 make_df_summary <- function(df) {
   df <- df %>%
     select_if(is.numeric) %>%
@@ -119,15 +155,27 @@ make_df_summary <- function(df) {
     select(stat_name, col_names)
 }
 
-main <- function(){
+#' Main
+#' 
+#' To run all functions and perform EDA analysis.
+#'
+#' @param X_train_path The path to X_training csv file (string)
+#' @param y_train_path The path to y_training csv file (string)
+#' @param out_dir The path to directory to output results
+#'
+#' @return Does not return any object
+main <- function(X_train_path, y_train_path, out_dir){
   
-  df <- get_df()
+  print("Loading DataFrame...")
+  df <- get_df(X_train_path, y_train_path)
   
   #////////////////////////////////////
   # Write plots
   #////////////////////////////////////
+  print("Creating plots...")
   ggsave(paste0(out_dir, "fig_eda_01_corplot.png"),
-         make_cor_plot())
+         make_cor_plot(df = df))
+  print("Created correlation plot...")
   
   ggsave(paste0(out_dir, "fig_eda_02_striking_features_relationship.png"),
          make_box_jitter_plot(df = df, response = blue_win, striking_features))
@@ -144,10 +192,11 @@ main <- function(){
   #////////////////////////////////////
   # Write tables
   #////////////////////////////////////
-  write_csv(make_df_summary(df), paste0(out_dir, "table_eda_01_summary_stats.csv"))
+  print("Writing tables...")
+  write_csv(make_df_summary(df = df), paste0(out_dir, "table_eda_01_summary_stats.csv"))
   
   
+  print("Script complete!")
 }
 
-main()
-
+main(arguments$X_train_path, arguments$y_train_path, arguments$out_dir)

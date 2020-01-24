@@ -12,7 +12,8 @@ Options:
 --output_path=<output_path>         The path of the directory to save output to
 --seed_num=<seed_num>               The seed to set random state
 
-Example: Rscript src/02_preprocess_data.R --input_path=data/01_raw/raw_total_fight_data.csv --output_path=data/02_preprocessed/ --seed_num=1993
+Example: 
+Rscript src/02_preprocess_data.R --input_path=data/01_raw/raw_total_fight_data.csv --output_path=data/02_preprocessed/ --seed_num=1993
 " -> doc
 
 suppressPackageStartupMessages(library(tidyverse))
@@ -21,6 +22,15 @@ suppressPackageStartupMessages(library(docopt))
 
 arguments <- docopt(doc)
 
+#' Main
+#' 
+#' To run all functions and perform EDA analysis.
+#'
+#' @param input_path The path to raw data file (string)
+#' @param output_path The path to direcotry to output processed data (string)
+#' @param seed_num  Set random number seed (int)
+#'
+#' @return Does not return any object
 main <- function(input_path, output_path, seed_num) {
 
   # load the ufc data ----
