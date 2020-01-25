@@ -17,6 +17,7 @@ Rscript src/03_eda.R --X_train_path=data/02_preprocessed/X_train.csv --y_train_p
 
 suppressPackageStartupMessages(library(docopt))
 suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(GGally))
 
 arguments <- docopt(doc)
 
