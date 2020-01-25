@@ -10,9 +10,9 @@ A data analysis project for DSCI 522 (Data Science workflows).
 ## Introduction
 
 In this project, we are trying to identify the key predictors for win in
-UFC events and examine whether these key predicitors are in line with
-the UFC offical rules. This analysis is very significant because it may
-serve as a quanlity control approach for the UFC judging system and also
+UFC events and examine whether these key predictors are in line with the
+UFC official rules. This analysis is very significant because it may
+serve as a quality control approach for the UFC judging system and also
 help to improve the rules and training strategies for the judges in the
 future.
 
@@ -20,12 +20,12 @@ The original data was obtained from Kaggle user [Rajeev
 Warrier](https://www.kaggle.com/rajeevw) (Rajeev Warrier 2019). The data
 has also been downloaded and uploaded to a [GitHub
 repo](https://github.com/SamEdwardes/ufc-data) to avoid issues for users
-who do not have kaggle accounts.Each row in the dataset represents
+who do not have Kaggle accounts. Each row in the dataset represents
 statistics from an UFC event, including the performance features and
 winners (Red or Blue). The data was pre-processed by only selecting the
 features related to fight performance and for the each feature, the
 ratio of Blue fighter versus the Red fighter was calculated. The target
-was computed as whether the Blue figher won or not.
+was computed as whether the Blue fighter won or not.
 
 We built a regression model using the logistic regression algorithm to
 assign weights to features and used recursive feature elimination (RFE)
@@ -78,7 +78,8 @@ following commands from the root directory of this project:
       - matplotlib==3.1.0
       - selenium==3.141.0
       - scikit-learn=0.22.1
-      - chromedriver-binary==80.0.3987.16.0
+
+  - chromedriver-binary==80.0.3987.16.0
     
     Note: Users may have an issue producing altair plots. You may need
     to download the latest version of ChomeDriver. For further
@@ -96,7 +97,7 @@ following commands from the root directory of this project:
 
 ## References
 
-<div id="refs" class="references hanging-indent">
+<div id="refs" class="references">
 
 <div id="ref-UFC-dataset">
 
