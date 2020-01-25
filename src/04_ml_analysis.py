@@ -68,6 +68,12 @@ def main(input_path_Xtrain, input_path_ytrain, input_path_Xtest, input_path_ytes
         --input_path_ytrain=data/02_preprocessed/y_train.csv --input_path_Xtest=data/02_preprocessed/X_test.csv 
         --input_path_ytest=data/02_preprocessed/y_test.csv --out_path=analysis/figures/ --out_path_csv=analysis/
   """
+  # Tests to make sure the right files are being passed in
+  assert input_path_Xtrain.endswith('.csv'),"Input X_train file is not in csv format"
+  assert input_path_ytrain.endswith('.csv'),"Input y_train file is not in csv format"
+  assert input_path_Xtest.endswith('.csv'),"Input X_test file is not in csv format"
+  assert input_path_ytest.endswith('.csv'),"Input y_test file is not in csv format"
+
   #////////////////////////////////////
   # DATA IMPORTING
   #////////////////////////////////////
@@ -97,6 +103,9 @@ def main(input_path_Xtrain, input_path_ytrain, input_path_Xtest, input_path_ytes
   X_train_sel = X_train.loc[:, rfe_cv.support_]
   X_test_sel = X_test.loc[:, rfe_cv.support_]
 
+  # test to make sure the columns are equal for train and test sets
+  #assert X_train_sel.columns == X_test_sel.columns
+
   # Fit to a Linear Regression model 
   lr_normal.fit(X_train, y_train)
   lr_select.fit(X_train_sel, y_train)
@@ -118,6 +127,10 @@ def main(input_path_Xtrain, input_path_ytrain, input_path_Xtest, input_path_ytes
   scores = [lr_normal.score(X_train, y_train), lr_select.score(X_train_sel, y_train), 
     lr_normal.score(X_test, y_test), lr_select.score(X_test_sel, y_test)]
   results = pd.DataFrame({'Model' : models, 'Score' : scores})
+  
+  # Test the the proper size csv is printing out
+  assert len(results) == 4
+  assert results.shape[1] == 2
   
   #////////////////////////////////////
   # PLOTTING THE NUMBER OF FEATURES
