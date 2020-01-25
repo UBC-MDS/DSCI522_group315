@@ -1,4 +1,4 @@
-# author: Sarah Weber
+# author: Group 315 (Sarah Weber)
 # date: 2020-01-22
 
 """Conducts feature selection and then data analysis for the UFC data.
@@ -7,16 +7,17 @@ Usage: src/04_ml_analysis.py --input_path_Xtrain=<input_path_Xtrain> --input_pat
 
 Options:
 
---input_path_Xtrain=<input_path_Xtrain>           The path of X_train.csv
---input_path_ytrain=<input_path_ytrainh>           The path of y_train.csv
---input_path_Xtest=<input_path_Xtest>           The path of X_test.csv
+--input_path_Xtrain=<input_path_Xtrain>          The path of X_train.csv
+--input_path_ytrain=<input_path_ytrainh>         The path of y_train.csv
+--input_path_Xtest=<input_path_Xtest>            The path of X_test.csv
 --input_path_yttest=<input_path_ytest>           The path of y_test.csv
---out_type=<out_type>               Type of file to write locally (script supports either feather or csv)
---out_path=<output_path>         The path of the directory to save output to
---out_path_csv=<output_path_csv>         The path of the directory to save output to for csvs
+--out_type=<out_type>                            Type of file to write locally (script supports either feather or csv)
+--out_path=<output_path>                         The path of the directory to save output of analysis
+--out_path_csv=<output_path_csv>                 The path of the directory to save output to for csv files
 
 
-Example: python src/04_ml_analysis.py --input_path_Xtrain=data/02_preprocessed/X_train.csv --input_path_ytrain=data/02_preprocessed/y_train.csv --input_path_Xtest=data/02_preprocessed/X_test.csv --input_path_ytest=data/02_preprocessed/y_test.csv --out_path=analysis/figures/ --out_path_csv=analysis/
+Example: python src/04_ml_analysis.py --input_path_Xtrain=data/02_preprocessed/X_train.csv --input_path_ytrain=data/02_preprocessed/y_train.csv 
+--input_path_Xtest=data/02_preprocessed/X_test.csv --input_path_ytest=data/02_preprocessed/y_test.csv --out_path=analysis/figures/ --out_path_csv=analysis/
 """
 
 from docopt import docopt
@@ -25,50 +26,79 @@ import os
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import GridSearchCV
-from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVR
-from sklearn.datasets import make_classification
 from sklearn.feature_selection import RFE, RFECV
 import warnings
 warnings.simplefilter(action='ignore', category=Warning)
 import altair as alt
-from selenium import webdriver
-from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
 from sklearn.metrics import plot_confusion_matrix
 import matplotlib.pyplot as plt
 
-#import feather
-
 opt = docopt(__doc__)
 
 def main(input_path_Xtrain, input_path_ytrain, input_path_Xtest, input_path_ytest, out_path, out_path_csv):
-  
+  """
+  Takes in input paths to data and the output folders and conducts a RFE CV search
+  to find the best features for a logisitic regression model.
+
+  Parameters
+  ----------
+  input_path_Xtrain: str
+      The directory path and file of X_train.csv
+  input_path_ytrain: str
+      The directory path and file of y_train.csv
+  input_path_Xtest: str
+      The directory path and file of X_test.csv
+  input_path_yttest: str
+      The directory path and file of y_test.csv
+  out_type: str
+      Type of file to write locally (script supports either feather or csv)
+  out_path: str
+      The path of the directory to save output of the analysis
+  out_path_csv: str
+        The path of the directory to save output to for csv files
+            
+  Returns
+  -------
+  none
+        
+  Examples
+  -------
+  >>> python src/04_ml_analysis.py --input_path_Xtrain=data/02_preprocessed/X_train.csv 
+        --input_path_ytrain=data/02_preprocessed/y_train.csv --input_path_Xtest=data/02_preprocessed/X_test.csv 
+        --input_path_ytest=data/02_preprocessed/y_test.csv --out_path=analysis/figures/ --out_path_csv=analysis/
+  """
+  #////////////////////////////////////
   # DATA IMPORTING
+  #////////////////////////////////////
   # Import data from the data folder based on the output of 02_preprocess_data.R
   X_train = pd.read_csv(input_path_Xtrain)
   y_train = pd.read_csv(input_path_ytrain)
   X_test = pd.read_csv(input_path_Xtest)
   y_test = pd.read_csv(input_path_ytest)
   
+  #////////////////////////////////////
   # FEATURE SELECTION
-  # run a grid search to find x number of important features
+  # Conduct a grid search to find x number of important features
+  #////////////////////////////////////
   lr = LogisticRegression(solver='liblinear')
   rfe_cv = RFECV(estimator = lr, cv=10)
   rfe_cv.fit(X_train, y_train)
   rfe_cv.support_
 
+  #////////////////////////////////////
   # MODEL BUILDING
+  #////////////////////////////////////
   # set up models for comparison on regular data and selected features
   lr_normal = LogisticRegression(solver='liblinear')
   lr_select = LogisticRegression(solver='liblinear')
   
-  # subset selected features for the train and test data
+  # Subset selected features for the train and test data
   X_train_sel = X_train.loc[:, rfe_cv.support_]
   X_test_sel = X_test.loc[:, rfe_cv.support_]
 
-  # fit to a Linear Regression model 
+  # Fit to a Linear Regression model 
   lr_normal.fit(X_train, y_train)
   lr_select.fit(X_train_sel, y_train)
   
@@ -90,8 +120,10 @@ def main(input_path_Xtrain, input_path_ytrain, input_path_Xtest, input_path_ytes
     lr_normal.score(X_test, y_test), lr_select.score(X_test_sel, y_test)]
   results = pd.DataFrame({'Model' : models, 'Score' : scores})
   
-  # PLOTTING NUMBER OF FEATURES
-  # Create a plot comparing the training error to test error for a given number of features. 
+  #////////////////////////////////////
+  # PLOTTING THE NUMBER OF FEATURES
+  # Create a plot comparing the training error to test error for a given number of features.
+  #////////////////////////////////////
   max_dict = {'n_features_to_select':[], 'train_error':[],'validation_error':[]}
   
   for i in range(1, len(X_train.columns)):
@@ -123,8 +155,10 @@ def main(input_path_Xtrain, input_path_ytrain, input_path_Xtest, input_path_ytes
                              values_format = 'd')
   disp.ax_.set_title('Confusion Matrix for Predicted Winner')
   
+  #////////////////////////////////////
   # PRINT FILES
   # Files Outputting from analysis
+  #////////////////////////////////////
   plt.savefig(out_path + "confusion_matrix.png")
   plot.save(out_path + "error.png", scale_factor=20)
   weight_df.to_csv(out_path_csv + "weights.csv", index = False)
