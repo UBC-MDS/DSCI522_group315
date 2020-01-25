@@ -9,7 +9,7 @@ Options:
 --url=<url>              URL of the data (in csv format)
 --out_file=<out_file>    Path (including filename) to locally save the file
 
-Example: Rscript 01_download_data.R --url=https://github.com/SamEdwardes/ufc-data/raw/master/raw_total_fight_data.csv --out_file=data/01_raw/raw_total_fight_data.csv
+Example: Rscript src/01_download_data.R --url=https://github.com/SamEdwardes/ufc-data/raw/master/raw_total_fight_data.csv --out_file=data/01_raw/raw_total_fight_data.csv
 
 " -> doc
 
