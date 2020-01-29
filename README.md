@@ -1,127 +1,117 @@
+
 # UFC Judge Scoring Analysis
 
-### Background
+Contributors: DSCI 522 Group 513
 
-The Ultimate Fighting Championship (UFC) is the world's premier mixed martial arts (MMA) organization. Founded in 1993, the UFC is largely responsible for the growth of MMA and is now home to the world's best martial artists.
+[Project repository](https://github.com/UBC-MDS/DSCI522_group315)
 
-A UFC match involves two opposing fighters engaging in hand to hand combat over three round fights (five rounds for championship fights). There are three main ways a figher can win:
+A data analysis project for DSCI 522 (Data Science workflows).
 
-- **Submission** - Occurs when one opponent verbally submits or taps (e.g. rear naked choke).
-- **Technical knockout (TKO)** - Occurs when the referee stops the fight because they have determined one fighter can no longer defend himself (e.g. punch to the face).
-- **Judges score card** - Occurs when the fight lasts for all scheduled rounds. A panel of three judges scores the fight using a 10 point system. The fighter with more points is deemed the winner.
+## Introduction
 
-*Note there are several other possible ways to win including "technical decision", "disqualification", and "forfeit". However these situations are rarely occur.*
+In this project, we are trying to identify the key predictors for win in
+UFC events and examine whether these key predictors are in line with the
+UFC official rules. This analysis is very significant because it may
+serve as a quality control approach for the UFC judging system and also
+help to improve the rules and training strategies for the judges in the
+future.
 
-### Is the UFC Fair?
+The original data was obtained from Kaggle user [Rajeev
+Warrier](https://www.kaggle.com/rajeevw) (Rajeev Warrier 2019). The data
+has also been downloaded and uploaded to a [GitHub
+repo](https://github.com/SamEdwardes/ufc-data) to avoid issues for users
+who do not have Kaggle accounts. Each row in the dataset represents
+statistics from an UFC event, including the performance features and
+winners (Red or Blue). The data was pre-processed by only selecting the
+features related to fight performance and for the each feature, the
+ratio of Blue fighter versus the Red fighter was calculated. The target
+was computed as whether the Blue fighter won or not.
 
-The UFC is a relatively new sport, and the rules are still evolving. One common source of controversy is the outcome of the fight when it goes to the judges' score cards. UFC personalities and fighters often take to the web after fights to complain about poor judging decisions. The Bleacher Report wrote an article in 2014 highlighting [The 10 Most Controversial Judging Decisions in UFC History](https://bleacherreport.com/articles/2072171-the-10-most-controversial-judging-decisions-in-ufc-history#slide0). UFC commentator [Joe Rogan](https://www.youtube.com/watch?v=v8FL1fm0wnw) is also outspoken about the perceived poor quality of judging.
+We built a regression model using the logistic regression algorithm to
+assign weights to features and used recursive feature elimination (RFE)
+approach with cross validation to identify the strong predictors. Among
+the selected 11 features by RFE, 7 features are related to
+Striking/Grappling performance which should be considered as the top
+criteria in judgment based on the UFC official rules (The ABC MMA Rules
+Committee 2017). Our final logistic regression model using these
+selected features performed well on validation data set with accuracy
+score of 0.83. It correctly predicted 368 out of 446 test cases and
+incorrectly predicted 78 cases with 40 being false positive and 38 false
+negative. Our results showed that the judges generally complied to the
+UFC rules and put weights on some additional factors.
 
-So how do judges score a fight? The system is somewhat confusing, but here are the basics:
+## Report
 
-- Judges score each round on a "*10-Point Must System*".
+The final report can be found
+[here](https://github.com/UBC-MDS/DSCI522_group315/blob/master/report/report.Rmd).
 
-- The fighter deemed to have won the round receives 10 points.
+## Usage
 
-- The fighter deemed to have lost the round receives 9 points or fewer.
+To replicate the analysis, you can clone this GitHub repository and
+install the [dependencies](#dependencies). Then you can run the
+following commands from the root directory of this project:
 
-- The figher with the most points at the end of the fight wins.
+    # download data
+    Rscript src/01_download_data.R --url=https://github.com/SamEdwardes/ufc-data/raw/master/raw_total_fight_data.csv --out_file=data/01_raw/raw_total_fight_data.csv
+    
+    # pre-process data 
+    Rscript src/02_preprocess_data.R --input_path=data/01_raw/raw_total_fight_data.csv --output_path=data/02_preprocessed/ --seed_num=1993
+    
+    # run EDA and create EDA figures
+    Rscript src/03_eda.R --X_train_path=data/02_preprocessed/X_train.csv --y_train_path=data/02_preprocessed/y_train.csv --out_dir=analysis/figures/
+    
+    # Optimize and test model
+    python src/04_ml_analysis.py --input_path_Xtrain=data/02_preprocessed/X_train.csv --input_path_ytrain=data/02_preprocessed/y_train.csv --input_path_Xtest=data/02_preprocessed/X_test.csv --input_path_ytest=data/02_preprocessed/y_test.csv --out_path=analysis/figures/ --out_path_csv=analysis/
+    
+    # render final report
+    Rscript -e "rmarkdown::render('report/report.Rmd', output_format = 'github_document')"
 
-- The [official MMA rules](http://www.abcboxing.com/wp-content/uploads/2016/08/juding_criteriascoring_rev0816.pdf) describe scoring as follows:
+## Dependencies
 
-  > - "*A 10 –10 round in MMA is when both fighters have competed for whatever duration of time in the round and there is no difference or advantage between either fighter.*”
-  > - “*A 10 –9 Round in MMA is when one combatant wins the round by a close margin.*”
-  > - ""*A 10 –8 Round in MMA is when one fighter wins the round by a large margin.*"
+  - Python 3.7.3 and Python packages:
+    
+      - docopt==0.6.2
+      - requests==2.22.0
+      - pandas==0.24.2
+      - numpy==1.16.4
+      - altair==3.2.0
+      - matplotlib==3.1.0
+      - selenium==3.141.0
+      - scikit-learn=0.22.1
 
-- The official rules also provide additional guidance on what constitutes winning. Some examples include:
+  - chromedriver-binary==80.0.3987.16.0
+    
+    Note: Users may have an issue producing altair plots. You may need
+    to download the latest version of ChomeDriver. For further
+    information see
+    [here](https://github.com/UBC-MDS/DSCI522_group315/issues/17).
 
-  > - "*Effective Striking/Grappling shall be considered the first priority of round assessments. Effective Aggressiveness is a ‘Plan B’ and should not be considered unless the judge does not see ANY advantage in the Effective Striking/Grappling realm. Cage/Ring Control (‘Plan C’) should only be needed when ALL other criteria are 100% even for both competitors. This will be an extremely rare occurrence.*"
-  > - "*Legal blows that have immediate or cumulative impact with the potential to contribute towards the end of the match with the IMMEDIATE weighing in more heavily than the cumulative impact.*"
+  - R version 3.6.1 and R packages:
+    
+      - docopt==0.6.1
+      - tidyverse==1.2.1
+      - janitor==1.2.0
+      - GGally==1.4.0
+      - kableExtra==1.1.0
+      - knitr==1.27.2
 
-Based on a reading of the rules and general consensus from MMA personalities, it is clear that judging is very subjective. This analysis seeks to understand whether the judging is fair.
+## References
 
-### Research Question
+<div id="refs" class="references">
 
-The goal of the analysis is to assess whether the judging in the UFC is consistent with the official rules and guidance. To answer this broad question, a more specific research question has been identified:
+<div id="ref-UFC-dataset">
 
-> **For fights that do not end in submission or TKO, what are the strongest predictors of who will win?**
+Rajeev Warrier. 2019. *"UFC-Fight Historical Data from 1993 to 2019"*.
+<https://www.kaggle.com/rajeevw/ufcdata>.
 
-This is a predictive question.
+</div>
 
-Some natural questions that stem from the main research question are:
+<div id="ref-MMA-judging-criteria">
 
-- Do judges award higher scores for striking (e.g. punching and kicking) over grappling (e.g. wrestling and submission attempts)?
-- Do judges consistently value the same criteria?
-- Do judges consider other factors such as the fighters win streak or size?
+The ABC MMA Rules Committee. 2017. *"MMA Judging
+Criteria/Scoring-Approved August 2, 2016"*.
+<http://www.abcboxing.com/wp-content/uploads/2016/08/juding_criteriascoring_rev0816.pdf>.
 
-By answering the stated research question insights into the fairness of UFC judging will be gleaned. Some possible outcomes of the analysis could be:
+</div>
 
-1. Several predictors were identified as strongly correlated to victory by decision. The judges consistently award a fighter for performing well in these areas. This would suggest that UFC judging is fair.
-
-   > Example:
-   >
-   > Fighters who landed 75% more head strikes than their opponents had a 95% chance of being victorious.
-
-2. No strong predictors were identified. The judges do no consistently score fights based on the available predictors. This would suggest that UFC judging is not fair.
-
-   > Example:
-   >
-   > Fighters who landed 75% more head strikes than their opponents had a 50% chance of being victorious.
-
-### Proposed Data Analysis Plan
-
-There are three major decisions to make:
-
-1. Model selection
-2. Data pre-processing/feature selection
-3. How to assess fairness
-
-#### 1. Model selection
-
-To assess the fairness of UFC judging an interpretable prediction model will be built. Multiple models with optimized hyper-parameters will be tested as part of the model selection process. 
-
-The selected model should provide the weighs of different features. The goal of the model is to determine the weighs of the features contributing to win a fight and whether the weighing of these features is consistent with the UFC rules and guidance. 
-
-For example, a random forest classifier may be able to achieve high accuracy, but will not provide insight into the weighing of the features and thus we can not evaluate the consistency of judging with the UFC rules and guidance.
-
-Potential models that may be used include:
-
-- Logistic regression
-- Support vector machines
-- Naive Bayes classifier
-
-#### 2. Data pre-processing/feature selection
-
-The downloaded data includes 144 possible features. Since the goal of the model is to predict the fight outcomes based on the performance, only features that are indictive of current fight performance will be used. The features which are not applicable will be dropped.
-
-For example, a fighter winning or losing streak is likely predictive of the fight outcome. However when judging a fight a judge is only considering the fighters' performance during the fight.
-
-#### 3. How to assess fairness
-
-For purposes of this research a definition for fairness must be established. The judging of a fight should be considered fair if:
-
-- The weighs of the features are consistent with the UFC rules and guidance
-- Fights with similar characterstics result in the same outcome
-- The same behaviors are consistently awarded
-
-If it is possible to create an interpretable model that can predict with 95% or greater accuracy the judging will be considered fair. If it is not possible to acheive 95% accuracy then the judging will be deemed unfair and different judges may have different scoring criteria.
-
-### Outcome of Analysis
-
-This analysis may help the UFC and other governing bodies assess the quality of their judges. The end product of this analysis will be a small report including:
-
-- A summary of the model and top weighted predictors
-- Scatter plots visualizing the relationships between the most interesting predictive variables and the response
-- A confusion matrix summarizing the results of predictions
-
-## Reference
-
-#### Useful Articles
-
-- MMA judging criteria: http://www.abcboxing.com/wp-content/uploads/2016/08/juding_criteriascoring_rev0816.pdf
-- MMA training criteria: http://www.abcboxing.com/MMA_REFEREE_AND_JUDGE_TRAINING_OUTLINE.pdf
-- MMA "fouls": http://www.abcboxing.com/wp-content/uploads/2015/09/unified_rules_fouls_rev0816.pdf
-
-#### Data
-
-- The original data was obtained from Kaggle user [Rajeev Warrier](https://www.kaggle.com/rajeevw). 
-- The data has also been downloaded and uploaded to a [GitHub repo](https://github.com/SamEdwardes/ufc-data) to avoid issues for users who do not have kaggle accounts.
+</div>
