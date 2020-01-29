@@ -1,5 +1,0 @@
-Model,Score
-Training Error - No Feature Selection,0.8433128147733632
-Training Model - Selected Features,0.8461108002238389
-Testing Error - No Feature Selection,0.820627802690583
-Testing Error - Selected Features,0.8251121076233184
