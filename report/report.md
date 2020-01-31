@@ -1,7 +1,7 @@
 UFC Judge Scoring Analysis
 ================
 DSCI 522 group 315 </br>
-2020/1/23 (updated: 2020-01-30)
+2020-01-23 (updated: 2020-01-30)
 
 ## Summary
 

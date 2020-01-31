@@ -1,7 +1,7 @@
 ---
 title: "UFC Judge Scoring Analysis"
 author: "DSCI 522 group 315 </br>"
-date: '2020/1/23 (updated: `r Sys.Date()`)'
+date: '2020-01-23 (updated: `r Sys.Date()`)'
 output:
   html_document:
     toc: yes
@@ -15,7 +15,6 @@ knitr::opts_chunk$set(echo = FALSE)
 library(knitr)
 library(kableExtra)
 library(tidyverse)
-
 ```
 
 ```{r load, echo=FALSE, message=FALSE, out.width = '40%'}

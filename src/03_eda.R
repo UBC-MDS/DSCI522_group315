@@ -109,8 +109,14 @@ make_box_jitter_plot <- function(df, response, ...) {
     mutate(
       b_value = value,
       r_value = 1 - value,
-      response = as.factor({{ response }})
+      blue_win = as.character(blue_win)
     )
+  
+  df$blue_win <- factor(
+    x = df$blue_win,
+    levels = c("0", "1"),
+    labels = c("Blue Loss", "Blue Win")
+  )
   
   df %>%
     ggplot(aes(x = {{ response }}, y = b_value, colour = {{ response }})) +
@@ -122,14 +128,16 @@ make_box_jitter_plot <- function(df, response, ...) {
       outlier.shape = NA,
       notch = TRUE
     ) +
-    scale_x_continuous(breaks = c(0, 1)) +
-    facet_wrap(~name) +
+    scale_y_continuous(breaks = c(0, 0.5, 1)) +
+    facet_wrap(~name, nrow=1) +
     labs(
-      x = "Blue Winner?",
+      x = element_blank(),
       y = "Proportion of feature for Blue"
     ) +
+    theme(legend.position = "none") +
     coord_flip()
 }
+
 
 #' Make dataframe summary
 #'
@@ -184,10 +192,10 @@ main <- function(X_train_path, y_train_path, out_dir){
   # Feature seleciton
   #////////////////////////////////////
   
-  striking_features <- c("sig_str_att", "sig_str_landed", "sig_str_pct",
+  striking_features <- c("sig_str_att", "sig_str_landed",
                          "total_str_att", "total_str_landed")
   
-  ground_features <- c("td_att", "td_landed", "td_pct", "sub_att", "pass", "rev")
+  ground_features <- c("td_att", "td_landed", "sub_att", "pass", "rev")
   
   attacks_to_features <- c("head_att", "head_landed", "body_att", "body_landed",
                            "leg_att", "leg_landed")
@@ -204,15 +212,19 @@ main <- function(X_train_path, y_train_path, out_dir){
   print("Created correlation plot...")
   
   ggsave(paste0(out_dir, "fig_eda_02_striking_features_relationship.png"),
+         height = 4, width = 6, units = "in",
          make_box_jitter_plot(df = df, response = blue_win, striking_features))
   
   ggsave(paste0(out_dir, "fig_eda_03_ground_features_relationship.png"),
+         height = 4, width = 6, units = "in",
          make_box_jitter_plot(df = df, response = blue_win, ground_features))
   
   ggsave(paste0(out_dir, "fig_eda_04_attacks_to_features_relationship.png"),
+         height = 4, width = 6, units = "in",
          make_box_jitter_plot(df = df, response = blue_win, attacks_to_features))
   
   ggsave(paste0(out_dir, "fig_eda_05_attacks_from_features_relationship.png"),
+         height = 4, width = 6, units = "in",
          make_box_jitter_plot(df = df, response = blue_win, attacks_from_features))
 
   #////////////////////////////////////
