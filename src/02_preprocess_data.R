@@ -19,8 +19,28 @@ Rscript src/02_preprocess_data.R --input_path=data/01_raw/raw_total_fight_data.c
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(janitor))
 suppressPackageStartupMessages(library(docopt))
+suppressPackageStartupMessages(library(testthat))
+suppressPackageStartupMessages(library(stringr))
 
 arguments <- docopt(doc)
+
+#' Preprocessing script tests
+#'
+#' @param input_path The path to raw data file (string)
+preprocessing_tests <- function(input_path) {
+  
+  df <- read_delim(input_path, delim = ";", col_types = cols()) %>%
+    clean_names()
+
+  test_that("Input path does not lead to csv file.", {
+    expect_true(str_sub(input_path, -4, -1) == ".csv")
+  })
+  
+  test_that("The file provided was unable to be parsed into a dataframe.", {
+    expect_true(sum(class(df) == "data.frame") > 0)
+  })
+}
+
 
 #' Main
 #' 
@@ -32,6 +52,9 @@ arguments <- docopt(doc)
 #'
 #' @return Does not return any object
 main <- function(input_path, output_path, seed_num) {
+  
+  print("Testing inputs...")
+  preprocessing_tests(input_path)
 
   # load the ufc data ----
   print("Reading fight basics data...")
