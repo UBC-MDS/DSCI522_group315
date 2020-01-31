@@ -1,7 +1,7 @@
 ---
 title: "UFC Judge Scoring Analysis"
 author: "DSCI 522 group 315 </br>"
-date: '2020/1/23 (updated: `r Sys.Date()`)'
+date: '2020-01-23 (updated: `r Sys.Date()`)'
 output:
   html_document:
     toc: yes
@@ -15,7 +15,6 @@ knitr::opts_chunk$set(echo = FALSE)
 library(knitr)
 library(kableExtra)
 library(tidyverse)
-
 ```
 
 ```{r load, echo=FALSE, message=FALSE, out.width = '40%'}
@@ -32,13 +31,45 @@ In this study, we aim to assess whether the judging in the Ultimate Fighting Cha
 
 The Ultimate Fighting Championship (UFC) is the world's premier mixed martial arts (MMA) organization. The events are to identify the world's best martial artists. Since it is a relatively new sport, the rules are not well established and need improvement. The results of the fights are often controversy when the winning is needed to be decided by judges based on the competitors' performance (instead of ending by submission or technical knockout). The official rules provide general guidance in judging the winner. The criteria sets priority from high to low ranking effective Striking/Grappling, effective Striking/Grappling and cage/ring Control[@MMA-judging-criteria]. As more and more controversy of the judging decisions raised, a systematic analysis of the UFC data would be very informative to evaluate the overall quality of UFC judging system.
 
-In this project, we are trying to identify the key predictors for winning in previous UFC events and examine whether these key predictors are in line with the UFC official guidance. This analysis is very significant because it may serve as a quanlity control approach for the UFC judging system and help to improve the rules and training strategies for the judges in the future.
+In this project, we are trying to identify the key predictors for winning in previous UFC events and examine whether these key predictors are in line with the UFC official guidance. This analysis is very significant because it may serve as a quality control approach for the UFC judging system and help to improve the rules and training strategies for the judges in the future.
  
 
 ## Methods
 
 ### Data
 The original data was obtained from Kaggle user Rajeev Warrier [@UFC-dataset]. The data has also been downloaded and uploaded to a [GitHub repo](https://github.com/SamEdwardes/ufc-data) to avoid issues for users who do not have Kaggle accounts. Each row in the dataset represents statistics from an UFC event, including the performance features and winners (Red or Blue). The data was pre-processed by only selecting the features related to fight performance and for the each feature, the ratio of Blue fighter versus the Red fighter was calculated. The target was computed as whether the Blue fighter wins or not. 
+
+The table below explains each feature that was considered as part of the analysis:
+
+| Feature Name Short | Description                                             | Category     |
+| ------------------ | ------------------------------------------------------- | ------------ |
+| blue_win           | 1 if the blue fighter won, 0 if the red fighter 1        | Win/lose     |
+| ground_land        | Number of strikes landed while on the ground            | Strikes from |
+| ground_att         | Number of strikes attempted while on the ground         | Strikes from |
+| clinch_landed      | Number of strikes landed while in the clinch            | Strikes from |
+| clinch_att         | Number of strikes attempted while in the clinch         | Strikes from |
+| distance_landed    | Number of strikes landed from a distance                | Strikes from |
+| distance_att       | Number of strikes attempted from a distance             | Strikes from |
+| leg_landed         | Number of strikes to opponents leg landed               | Strikes to   |
+| leg_att            | Number of strikes to opponents leg attempted            | Strikes to   |
+| body_landed        | Number of strikes to opponents body landed              | Strikes to   |
+| body_att           | Number of strikes to opponents body attempted           | Strikes to   |
+| head_landed        | Number of strikes to opponents head landed              | Strikes to   |
+| head_att           | Number of strikes to opponents head landed              | Strikes to   |
+| rev                | Number of grappling reversals achieved                  | Grappling    |
+| pass               | Number of guard passes achieved                         | Grappling    |
+| sub_att            | Number of submission attempts on opponent               | Grappling    |
+| td_pct             | Percent of takedowns successfully completed on opponent | Grappling    |
+| td_landed          | Number of takedowns successfully completed on opponent  | Grappling    |
+| td_att             | Number of takedowns attempted on opponent               | Grappling    |
+| total_str_landed   | Total strikes landed on opponent                        | Striking     |
+| total_str_att      | Total strikes attempted on opponent                     | Striking     |
+| sig_str_att        | Total significant strikes attempted on opponent         | Striking     |
+| sig_str_pct        | Percent of significant strikes landed on opponent       | Striking     |
+| sig_str_landed     | Total significant strikes landed on opponent            | Striking     |
+
+
+
 
 ### Analysis
 The logistic regression algorithm was used to build a regression model to assign weights to all the features in the pre-processed data. The features included in the final model were selected using recursive feature elimination (RFE) approach with cross validation. A final regression model was built using these selected features and used to predict on the validation data set. The R and Python programming languages [@R; @Python] and the following R and Python packages were used to perform the analysis: docopt [@docopt], janitor [@janitor], tidyverse [@tidyverse], GGally [@GGally], docopt [@docoptpython], os [@Python], requests [@requests], Pandas [@mckinney-proc-scipy-2010], numpy [@NumPy], altair [@Altair2018], matplotlib [@Hunter:2007], selenium [@selenium], scikit-learn [@sklearn_api], chromedriver-binary [@chromedriver-binary]. The scripts for generating the analysis and the report together with all the relevant information can be found [here](https://github.com/UBC-MDS/DSCI522_group315). 
@@ -86,7 +117,7 @@ We built our final logistic regression model using the 11 features selected by R
 
 ```{r RFE error, echo=FALSE, message=FALSE, out.width = '40%'}
 table2 <- read_csv("../analysis/results.csv")
-kable(table2, align = "cc", caption = "Table 2. Accuray of model performance on train and validation data sets.") %>%
+kable(table2, align = "cc", caption = "Table 2. Accuracy of model performance on train and validation data sets.") %>%
   kable_styling("striped", position="center", full_width = FALSE) 
 ```
 
@@ -97,7 +128,7 @@ The confusion matrix showed similar accuracy, where our model correctly predicte
 knitr::include_graphics("../analysis/figures/confusion_matrix.png")
 ```
 
-Overall, we identified the key predictors for UFC winning. Most of these strong predictors are indicators of Strking/Grappling performance, which is consistent with the top criteria in UFC judgment. However, several other predictors are also heavily weighted by the judges. Although our model performed well on the validation data set, there is still room to improve and optimize the model to achieve better accuracy. However, the results may also reflect the inherent heterogeneity with the data set, suggesting there are big variations in the subjective judgement on different cases. 
+Overall, we identified the key predictors for UFC winning. Most of these strong predictors are indicators of Striking/Grappling performance, which is consistent with the top criteria in UFC judgment. However, several other predictors are also heavily weighted by the judges. Although our model performed well on the validation data set, there is still room to improve and optimize the model to achieve better accuracy. However, the results may also reflect the inherent heterogeneity with the data set, suggesting there are big variations in the subjective judgement on different cases. 
  
  
 ## References

@@ -1,7 +1,7 @@
 UFC Judge Scoring Analysis
 ================
 DSCI 522 group 315 </br>
-2020/1/23 (updated: 2020-01-25)
+2020-01-23 (updated: 2020-01-30)
 
 ## Summary
 
@@ -42,7 +42,7 @@ system.
 In this project, we are trying to identify the key predictors for
 winning in previous UFC events and examine whether these key predictors
 are in line with the UFC official guidance. This analysis is very
-significant because it may serve as a quanlity control approach for the
+significant because it may serve as a quality control approach for the
 UFC judging system and help to improve the rules and training strategies
 for the judges in the future.
 
@@ -60,6 +60,36 @@ selecting the features related to fight performance and for the each
 feature, the ratio of Blue fighter versus the Red fighter was
 calculated. The target was computed as whether the Blue fighter wins or
 not.
+
+The table below explains each feature that was considered as part of the
+analysis:
+
+| Feature Name Short | Description                                             | Category     |
+| ------------------ | ------------------------------------------------------- | ------------ |
+| blue\_win          | 1 if the blue fighter won, 0 if the red fighter 1       | Win/lose     |
+| ground\_land       | Number of strikes landed while on the ground            | Strikes from |
+| ground\_att        | Number of strikes attempted while on the ground         | Strikes from |
+| clinch\_landed     | Number of strikes landed while in the clinch            | Strikes from |
+| clinch\_att        | Number of strikes attempted while in the clinch         | Strikes from |
+| distance\_landed   | Number of strikes landed from a distance                | Strikes from |
+| distance\_att      | Number of strikes attempted from a distance             | Strikes from |
+| leg\_landed        | Number of strikes to opponents leg landed               | Strikes to   |
+| leg\_att           | Number of strikes to opponents leg attempted            | Strikes to   |
+| body\_landed       | Number of strikes to opponents body landed              | Strikes to   |
+| body\_att          | Number of strikes to opponents body attempted           | Strikes to   |
+| head\_landed       | Number of strikes to opponents head landed              | Strikes to   |
+| head\_att          | Number of strikes to opponents head landed              | Strikes to   |
+| rev                | Number of grappling reversals achieved                  | Grappling    |
+| pass               | Number of guard passes achieved                         | Grappling    |
+| sub\_att           | Number of submission attempts on opponent               | Grappling    |
+| td\_pct            | Percent of takedowns successfully completed on opponent | Grappling    |
+| td\_landed         | Number of takedowns successfully completed on opponent  | Grappling    |
+| td\_att            | Number of takedowns attempted on opponent               | Grappling    |
+| total\_str\_landed | Total strikes landed on opponent                        | Striking     |
+| total\_str\_att    | Total strikes attempted on opponent                     | Striking     |
+| sig\_str\_att      | Total significant strikes attempted on opponent         | Striking     |
+| sig\_str\_pct      | Percent of significant strikes landed on opponent       | Striking     |
+| sig\_str\_landed   | Total significant strikes landed on opponent            | Striking     |
 
 ### Analysis
 
@@ -86,10 +116,19 @@ To explore the relationships between different features and between
 features and target, we plotted the pair-wise correlation matrix (Figure
 1). The graph showed that features sig\_str\_att, head\_att,
 total\_str\_att are highly correlated with the target. It also indicated
-there are some interaction between the
-features.
+there are some interaction between the features.
 
-<img src="../analysis/figures/fig_eda_01_corplot.png" title="Figure 1. Correlation matrix for features and target." alt="Figure 1. Correlation matrix for features and target." width="50%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+
+<img src="../analysis/figures/fig_eda_01_corplot.png" alt="Figure 1. Correlation matrix for features and target." width="50%" />
+
+<p class="caption">
+
+Figure 1. Correlation matrix for features and target.
+
+</p>
+
+</div>
 
 We categorized the features into four groups and in each group we
 explored the relationships between features and target (Figure 2). In
@@ -98,10 +137,22 @@ between winning and losing were overlapped for some extend in different
 groups. However, each group has some features with significant
 difference in the means, which indicating these features may be strong
 predictors for the target. The result is consistent with the
-feature-target correlation
-analysis.
+feature-target correlation analysis.
 
-<img src="../analysis/figures/fig_eda_02_striking_features_relationship.png" title="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. Top left: striking features, top right: ground features, bottom left: attacks-to features, bottom right: attacks-from features." alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. Top left: striking features, top right: ground features, bottom left: attacks-to features, bottom right: attacks-from features." width="50%" /><img src="../analysis/figures/fig_eda_03_ground_features_relationship.png" title="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. Top left: striking features, top right: ground features, bottom left: attacks-to features, bottom right: attacks-from features." alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. Top left: striking features, top right: ground features, bottom left: attacks-to features, bottom right: attacks-from features." width="50%" /><img src="../analysis/figures/fig_eda_04_attacks_to_features_relationship.png" title="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. Top left: striking features, top right: ground features, bottom left: attacks-to features, bottom right: attacks-from features." alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. Top left: striking features, top right: ground features, bottom left: attacks-to features, bottom right: attacks-from features." width="50%" /><img src="../analysis/figures/fig_eda_05_attacks_from_features_relationship.png" title="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. Top left: striking features, top right: ground features, bottom left: attacks-to features, bottom right: attacks-from features." alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. Top left: striking features, top right: ground features, bottom left: attacks-to features, bottom right: attacks-from features." width="50%" />
+<div class="figure">
+
+<img src="../analysis/figures/fig_eda_02_striking_features_relationship.png" alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. Top left: striking features, top right: ground features, bottom left: attacks-to features, bottom right: attacks-from features." width="50%" /><img src="../analysis/figures/fig_eda_03_ground_features_relationship.png" alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. Top left: striking features, top right: ground features, bottom left: attacks-to features, bottom right: attacks-from features." width="50%" /><img src="../analysis/figures/fig_eda_04_attacks_to_features_relationship.png" alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. Top left: striking features, top right: ground features, bottom left: attacks-to features, bottom right: attacks-from features." width="50%" /><img src="../analysis/figures/fig_eda_05_attacks_from_features_relationship.png" alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. Top left: striking features, top right: ground features, bottom left: attacks-to features, bottom right: attacks-from features." width="50%" />
+
+<p class="caption">
+
+Figure 2. Comparison of the distributions of the predictors between
+winning and losing in different groups. Top left: striking features, top
+right: ground features, bottom left: attacks-to features, bottom right:
+attacks-from features.
+
+</p>
+
+</div>
 
 <p>
 
@@ -120,8 +171,7 @@ UFC official rules (The ABC MMA Rules Committee 2017).This indicates the
 rules were generally followed by the judges. Four features do not belong
 to the Striking/Grappling group, such as the top second feature
 “head\_att”, suggesting there are some other factors which the judges
-put higher weights
-on.
+put higher weights on.
 
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 
@@ -341,24 +391,34 @@ errors using recursive feature elimination (RFE) with the
 “n\_features\_to\_select” hyperprameter ranging from 1 to 22 (Figure
 3). It is observed that when the “n\_features\_to\_select” hyperprameter
 is between 8 and 11, the train and validation errors are relatively
-small, confirming the results from RFE with cross
-validation.
+small, confirming the results from RFE with cross validation.
 
-<img src="../analysis/figures/error.png" title="Figure 3. The train and validation error for including different numbers of features in the model ." alt="Figure 3. The train and validation error for including different numbers of features in the model ." width="60%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+
+<img src="../analysis/figures/error.png" alt="Figure 3. The train and validation error for including different numbers of features in the model ." width="60%" />
+
+<p class="caption">
+
+Figure 3. The train and validation error for including different numbers
+of features in the model .
+
+</p>
+
+</div>
 
 We built our final logistic regression model using the 11 features
 selected by RFE with cross validation and compared it with a logistic
 regression model using all the features. The accuracy on the train and
 validation data sets are reasonable for both models. The accuracy for
 the model with feature selection is slightly better than the model
-without feature
-selection.
+without feature selection.
 
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 
 <caption>
 
-Table 2. Accuray of model performance on train and validation data sets.
+Table 2. Accuracy of model performance on train and validation data
+sets.
 
 </caption>
 
@@ -457,21 +517,32 @@ predicted 368 out of 446 validation cases and incorrectly predicted 78
 cases with 40 being false positive and 38 false negative cases (Figure
 4).
 
-<img src="../analysis/figures/confusion_matrix.png" title="Figure 4. Confusion matrix of model performance on test data on validation data set." alt="Figure 4. Confusion matrix of model performance on test data on validation data set." width="60%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+
+<img src="../analysis/figures/confusion_matrix.png" alt="Figure 4. Confusion matrix of model performance on test data on validation data set." width="60%" />
+
+<p class="caption">
+
+Figure 4. Confusion matrix of model performance on test data on
+validation data set.
+
+</p>
+
+</div>
 
 Overall, we identified the key predictors for UFC winning. Most of these
-strong predictors are indicators of Strking/Grappling performance, which
-is consistent with the top criteria in UFC judgment. However, several
-other predictors are also heavily weighted by the judges. Although our
-model performed well on the validation data set, there is still room to
-improve and optimize the model to achieve better accuracy. However, the
-results may also reflect the inherent heterogeneity with the data set,
-suggesting there are big variations in the subjective judgement on
-different cases.
+strong predictors are indicators of Striking/Grappling performance,
+which is consistent with the top criteria in UFC judgment. However,
+several other predictors are also heavily weighted by the judges.
+Although our model performed well on the validation data set, there is
+still room to improve and optimize the model to achieve better accuracy.
+However, the results may also reflect the inherent heterogeneity with
+the data set, suggesting there are big variations in the subjective
+judgement on different cases.
 
 ## References
 
-<div id="refs" class="references">
+<div id="refs" class="references hanging-indent">
 
 <div id="ref-GGally">
 
