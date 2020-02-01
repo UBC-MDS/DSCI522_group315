@@ -141,15 +141,15 @@ predictors for the target. The result is consistent with the
 feature-target correlation
 analysis.
 
-<img src="../analysis/figures/fig_eda_02_striking_features_relationship.png" width="1800" style="display: block; margin: auto;" />
+<img src="../analysis/figures/fig_eda_02_striking_features_relationship.png" width="75%" style="display: block; margin: auto;" />
 
-<img src="../analysis/figures/fig_eda_03_ground_features_relationship.png" width="1800" style="display: block; margin: auto;" />
+<img src="../analysis/figures/fig_eda_03_ground_features_relationship.png" width="75%" style="display: block; margin: auto;" />
 
-<img src="../analysis/figures/fig_eda_04_attacks_to_features_relationship.png" width="1800" style="display: block; margin: auto;" />
+<img src="../analysis/figures/fig_eda_04_attacks_to_features_relationship.png" width="75%" style="display: block; margin: auto;" />
 
-<div class="figure" style="text-align: centre">
+<div class="figure" style="text-align: center">
 
-<img src="../analysis/figures/fig_eda_05_attacks_from_features_relationship.png" alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. From top to bottom: striking features, ground features, attacks-to features, attacks-from features.The feature explanations can be found in method section." width="1800" />
+<img src="../analysis/figures/fig_eda_05_attacks_from_features_relationship.png" alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. From top to bottom: striking features, ground features, attacks-to features, attacks-from features.The feature explanations can be found in method section." width="75%" />
 
 <p class="caption">
 
@@ -162,12 +162,6 @@ features.The feature explanations can be found in method section.
 
 </div>
 
-<p>
-
- 
-
-</p>
-
 We chose logistic regression model to assign weights to all the features
 and used recursive feature elimination (RFE) with cross validation
 approach to identify the most relevant features and ranked them
@@ -179,7 +173,7 @@ UFC official rules (The ABC MMA Rules Committee 2017).This indicates the
 rules were generally followed by the judges. Four features do not belong
 to the Striking/Grappling group, such as the top second feature
 “head\_att”. Further information are needed to evaluate whether the
-four features belong to the ffective Striking/Grappling and cage/ring
+four features belong to the effective Striking/Grappling and cage/ring
 Control. Without further information, it may suggest these are some
 additional factors which the judges put higher weights
 on.
@@ -188,7 +182,7 @@ on.
 
 <caption>
 
-Table 1. REF selected features and their weights.
+Table 1. RFE selected features and their weights.
 
 </caption>
 
@@ -397,16 +391,16 @@ ground\_att
 *Note: The feature full name and explanation can be found in Method
 section.*
 
-To visulize how feature selection affects the model performance, we
+To visualize how feature selection affects the model performance, we
 calculate the train and test errors using recursive feature elimination
 (RFE) with the “n\_features\_to\_select” hyperprameter ranging from 1 to
 22 (Figure 3). It is observed that when the “n\_features\_to\_select”
 hyperprameter is 5 to 8, the train and validation errors are relatively
 small and have balanced bias-variance trade-off. This is not quite
 consistent with the number of features we got from the RFE with cross
-validation. However, it is not suprising that the cross validation can
-help to better optimize the hyperparameters while manually chosing the
-hyperarameters may subject to
+validation. However, it is not surprising that the cross validation can
+help to better optimize the hyperparameters while manually choosing the
+hyperparameters may subject to
 variations.
 
 <div class="figure" style="text-align: center">
@@ -571,7 +565,7 @@ Our model is also limited to our dataset. We would also like to get more
 data from outside the Striking/Grappling variables with more data to
 describe Cage/Ring control. Options for these further variables include
 average distance from the cage, number of times behind the opponent,
-number of times to cross the centre line.
+number of times to cross the center line.
 
 ## References
 
