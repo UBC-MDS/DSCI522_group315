@@ -1,7 +1,7 @@
 UFC Judge Scoring Analysis
 ================
 DSCI 522 group 315 </br>
-2020-01-23 (updated: 2020-01-31)
+2020-01-23 (updated: 2020-02-01)
 
 ## Summary
 
@@ -121,7 +121,7 @@ features.
 
 <div class="figure" style="text-align: center">
 
-<img src="../analysis/figures/fig_eda_01_corplot.png" alt="Figure 1. Correlation matrix for features and target." width="50%" />
+<img src="../analysis/figures/fig_eda_01_corplot.png" alt="Figure 1. Correlation matrix for features and target." width="2100" />
 
 <p class="caption">
 
@@ -141,26 +141,26 @@ predictors for the target. The result is consistent with the
 feature-target correlation
 analysis.
 
-<div class="figure">
+<img src="../analysis/figures/fig_eda_02_striking_features_relationship.png" width="75%" style="display: block; margin: auto;" />
 
-<img src="../analysis/figures/fig_eda_02_striking_features_relationship.png" alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. Top left: striking features, top right: ground features, bottom left: attacks-to features, bottom right: attacks-from features." width="50%" /><img src="../analysis/figures/fig_eda_03_ground_features_relationship.png" alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. Top left: striking features, top right: ground features, bottom left: attacks-to features, bottom right: attacks-from features." width="50%" /><img src="../analysis/figures/fig_eda_04_attacks_to_features_relationship.png" alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. Top left: striking features, top right: ground features, bottom left: attacks-to features, bottom right: attacks-from features." width="50%" /><img src="../analysis/figures/fig_eda_05_attacks_from_features_relationship.png" alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. Top left: striking features, top right: ground features, bottom left: attacks-to features, bottom right: attacks-from features." width="50%" />
+<img src="../analysis/figures/fig_eda_03_ground_features_relationship.png" width="75%" style="display: block; margin: auto;" />
+
+<img src="../analysis/figures/fig_eda_04_attacks_to_features_relationship.png" width="75%" style="display: block; margin: auto;" />
+
+<div class="figure" style="text-align: center">
+
+<img src="../analysis/figures/fig_eda_05_attacks_from_features_relationship.png" alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. From top to bottom: striking features, ground features, attacks-to features, attacks-from features.The feature explanations can be found in method section." width="75%" />
 
 <p class="caption">
 
 Figure 2. Comparison of the distributions of the predictors between
-winning and losing in different groups. Top left: striking features, top
-right: ground features, bottom left: attacks-to features, bottom right:
-attacks-from features.
+winning and losing in different groups. From top to bottom: striking
+features, ground features, attacks-to features, attacks-from
+features.The feature explanations can be found in method section.
 
 </p>
 
 </div>
-
-<p>
-
- 
-
-</p>
 
 We chose logistic regression model to assign weights to all the features
 and used recursive feature elimination (RFE) with cross validation
@@ -172,15 +172,17 @@ which should be the first priority in judging criteria according to the
 UFC official rules (The ABC MMA Rules Committee 2017).This indicates the
 rules were generally followed by the judges. Four features do not belong
 to the Striking/Grappling group, such as the top second feature
-“head\_att”, suggesting there are some other factors which the judges
-put higher weights
+“head\_att”. Further information are needed to evaluate whether the
+four features belong to the effective Striking/Grappling and cage/ring
+Control. Without further information, it may suggest these are some
+additional factors which the judges put higher weights
 on.
 
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 
 <caption>
 
-Table 1. REF selected features and their weights.
+Table 1. RFE selected features and their weights.
 
 </caption>
 
@@ -216,7 +218,7 @@ sig\_str\_att
 
 <td style="text-align:center;">
 
-\-3.4293230
+\-3.429
 
 </td>
 
@@ -232,7 +234,7 @@ head\_att
 
 <td style="text-align:center;">
 
-\-3.2237744
+\-3.224
 
 </td>
 
@@ -248,7 +250,7 @@ total\_str\_att
 
 <td style="text-align:center;">
 
-\-2.8965256
+\-2.897
 
 </td>
 
@@ -264,7 +266,7 @@ td\_att
 
 <td style="text-align:center;">
 
-\-2.3422950
+\-2.342
 
 </td>
 
@@ -280,7 +282,7 @@ distance\_att
 
 <td style="text-align:center;">
 
-\-1.4891628
+\-1.489
 
 </td>
 
@@ -296,7 +298,7 @@ distance\_landed
 
 <td style="text-align:center;">
 
-1.3455524
+1.346
 
 </td>
 
@@ -312,7 +314,7 @@ pass
 
 <td style="text-align:center;">
 
-\-1.2626370
+\-1.263
 
 </td>
 
@@ -328,7 +330,7 @@ total\_str\_landed
 
 <td style="text-align:center;">
 
-\-1.1250887
+\-1.125
 
 </td>
 
@@ -344,7 +346,7 @@ td\_pct
 
 <td style="text-align:center;">
 
-1.1130846
+1.113
 
 </td>
 
@@ -360,7 +362,7 @@ td\_landed
 
 <td style="text-align:center;">
 
-0.7163905
+0.716
 
 </td>
 
@@ -376,7 +378,7 @@ ground\_att
 
 <td style="text-align:center;">
 
-\-0.6729079
+\-0.673
 
 </td>
 
@@ -386,20 +388,24 @@ ground\_att
 
 </table>
 
-*Note: The features’ full name and explanation can be found
-[here](https://www.kaggle.com/rajeevw/ufcdata).*
+*Note: The feature full name and explanation can be found in Method
+section.*
 
-To validate our feature selection, we calculate the train and test
-errors using recursive feature elimination (RFE) with the
-“n\_features\_to\_select” hyperprameter ranging from 1 to 22 (Figure
-3). It is observed that when the “n\_features\_to\_select” hyperprameter
-is between 8 and 11, the train and validation errors are relatively
-small, confirming the results from RFE with cross
-validation.
+To visualize how feature selection affects the model performance, we
+calculate the train and test errors using recursive feature elimination
+(RFE) with the “n\_features\_to\_select” hyperprameter ranging from 1 to
+22 (Figure 3). It is observed that when the “n\_features\_to\_select”
+hyperprameter is 5 to 8, the train and validation errors are relatively
+small and have balanced bias-variance trade-off. This is not quite
+consistent with the number of features we got from the RFE with cross
+validation. However, it is not surprising that the cross validation can
+help to better optimize the hyperparameters while manually choosing the
+hyperparameters may subject to
+variations.
 
 <div class="figure" style="text-align: center">
 
-<img src="../analysis/figures/error.png" alt="Figure 3. The train and validation error for including different numbers of features in the model ." width="60%" />
+<img src="../analysis/figures/error.png" alt="Figure 3. The train and validation error for including different numbers of features in the model ." width="10980" />
 
 <p class="caption">
 
@@ -453,29 +459,13 @@ Score
 
 <td style="text-align:center;">
 
-Training Error - No Feature Selection
+Training Accuracy - No Feature Selection
 
 </td>
 
 <td style="text-align:center;">
 
-0.8433128
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:center;">
-
-Training Model - Selected Features
-
-</td>
-
-<td style="text-align:center;">
-
-0.8461108
+0.843
 
 </td>
 
@@ -485,13 +475,13 @@ Training Model - Selected Features
 
 <td style="text-align:center;">
 
-Testing Error - No Feature Selection
+Testing Accuracy - No Feature Selection
 
 </td>
 
 <td style="text-align:center;">
 
-0.8206278
+0.821
 
 </td>
 
@@ -501,13 +491,29 @@ Testing Error - No Feature Selection
 
 <td style="text-align:center;">
 
-Testing Error - Selected Features
+Training Accuracy - Selected Features
 
 </td>
 
 <td style="text-align:center;">
 
-0.8251121
+0.846
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:center;">
+
+Testing Accuracy - Selected Features
+
+</td>
+
+<td style="text-align:center;">
+
+0.825
 
 </td>
 
@@ -543,7 +549,23 @@ Although our model performed well on the validation data set, there is
 still room to improve and optimize the model to achieve better accuracy.
 However, the results may also reflect the inherent heterogeneity with
 the data set, suggesting there are big variations in the subjective
-judgement on different cases.
+judgement on different cases. Further areas to explore in optimizing the
+model are trying different models with hyperparameter optimization to
+select the best model. The analysis was based on finding the best
+features making logistic regression the default choice. Logistic
+regression is a very interpretive model that can be used to understand
+the weights of the features, but there may be models that are better for
+predicting the strongest predictors potentially in a black box model
+where you cannot see all the weights related to the features. The
+feature selection was done through RFE which removes features until the
+over accuracy goes down. Feature selection methods could be further
+explored.
+
+Our model is also limited to our dataset. We would also like to get more
+data from outside the Striking/Grappling variables with more data to
+describe Cage/Ring control. Options for these further variables include
+average distance from the cage, number of times behind the opponent,
+number of times to cross the center line.
 
 ## References
 

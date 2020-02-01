@@ -22,11 +22,6 @@ opt <- docopt(doc)
 
 main <- function(url, out_file){
   
-  # Test to see if URL Exists
-  if (!url.exists(url)==FALSE){
-    stop("url doesn't exist")
-  }
-  
   # Tests that the output will be a csv file
   test_that("Output path must be a csv file.", {
     expect_true(str_sub(out_file, -4, -1) == ".csv")

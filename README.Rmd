@@ -28,7 +28,11 @@ We built a regression model using the logistic regression algorithm to assign we
 
 
 ## Report
-The final report can be found [here](https://github.com/UBC-MDS/DSCI522_group315/blob/master/report/report.Rmd).
+
+The final report can be found:
+
+- Rendered markdown version of the report [here](report/report.md).
+- Rendered html version of the report [here](https://ubc-mds.github.io/DSCI522_group315/report/report.html).
 
 ## Usage
 
@@ -57,7 +61,7 @@ make clean
 
 - chromedriver-binary==80.0.3987.16.0
 
-  Note: Users may have an issue producing altair plots. You may need to download the latest version of ChromeDriver.Instructions for installing chromeDriver:
+Note: Users may have an issue producing altair plots. You may need to download the latest version of ChromeDriver.Instructions for installing chromeDriver:
   ```
   conda install selenium
   conda install -c conda-forge python-chromedriver-binary
