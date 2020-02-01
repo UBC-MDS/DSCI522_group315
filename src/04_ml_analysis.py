@@ -113,14 +113,13 @@ def main(input_path, out_path, out_path_csv):
   weight_df = weight_df.reindex(weight_df.Weights.abs().sort_values(ascending=False).index)
   
   # Final results of the model on training and test data with and without the feature selection
-  lr_normal.score(X_train, y_train)
-  lr_normal.score(X_test, y_test)
-  lr_select.score(X_train_sel, y_train)
-  lr_select.score(X_test_sel, y_test)
+  train_score = round(lr_normal.score(X_train, y_train), 4)
+  test_score = round(lr_normal.score(X_test, y_test), 4)
+  train_sel_score = round(lr_select.score(X_train_sel, y_train), 4)
+  test_sel_score = round(lr_select.score(X_test_sel, y_test), 4)
   
   models = ["Training Accuracy - No Feature Selection", "Training Accuracy - Selected Features", "Testing Accuracy - No Feature Selection", "Testing Accuracy - Selected Features"]
-  scores = [lr_normal.score(X_train, y_train), lr_select.score(X_train_sel, y_train), 
-    lr_normal.score(X_test, y_test), lr_select.score(X_test_sel, y_test)]
+  scores = [train_score, test_score, train_sel_score, test_sel_score]
   results = pd.DataFrame({'Model' : models, 'Score' : scores})
   
   # Test the the proper size csv is printing out
