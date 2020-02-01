@@ -43,7 +43,7 @@ UFC rules and put weights on some additional factors.
 ## Report
 
 The final report can be found
-[here](https://github.com/UBC-MDS/DSCI522_group315/blob/master/report/report.Rmd).
+[here](https://github.com/UBC-MDS/DSCI522_group315/blob/master/report/report.md).
 
 ## Usage
 
@@ -63,7 +63,6 @@ this project:
 ## Dependencies
 
   - Python 3.7.3 and Python packages:
-    
       - docopt==0.6.2
       - requests==2.22.0
       - pandas==0.24.2
@@ -72,25 +71,19 @@ this project:
       - matplotlib==3.1.0
       - selenium==3.141.0
       - scikit-learn=0.22.1
-
   - chromedriver-binary==80.0.3987.16.0
-    
-    Note: Users may have an issue producing altair plots. You may need
-    to download the latest version of ChromeDriver.Instructions for
-    installing chromeDriver:
-    
-        conda install selenium
-        conda install -c conda-forge python-chromedriver-binary
-    
-    You need to include the ChromeDriver location in your system PATH.
-    Please follow the instructions
-    [here](https://www.kenst.com/2015/03/including-the-chromedriver-location-in-macos-system-path/)
-    for mac users and
-    [here](https://www.google.com/search?q=Including+the+ChromeDriver+location+in+PC&oq=Including+the+ChromeDriver+location+in+PC&aqs=chrome..69i57j69i60l2.2395j0j7&sourceid=chrome&ie=UTF-8)
-    for PC users.
+
+Note: Users may have an issue producing altair plots. You may need to
+download the latest version of ChromeDriver.Instructions for installing
+chromeDriver: `conda install selenium conda install -c conda-forge
+python-chromedriver-binary` You need to include the ChromeDriver
+location in your system PATH. Please follow the instructions
+[here](https://www.kenst.com/2015/03/including-the-chromedriver-location-in-macos-system-path/)
+for mac users and
+[here](https://www.google.com/search?q=Including+the+ChromeDriver+location+in+PC&oq=Including+the+ChromeDriver+location+in+PC&aqs=chrome..69i57j69i60l2.2395j0j7&sourceid=chrome&ie=UTF-8)
+for PC users.
 
   - R version 3.6.1 and R packages:
-    
       - docopt==0.6.1
       - tidyverse==1.3.0
       - janitor==1.2.0

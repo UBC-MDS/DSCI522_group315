@@ -3,7 +3,7 @@ title: "UFC Judge Scoring Analysis"
 author: "DSCI 522 group 315 </br>"
 date: '2020-01-23 (updated: `r Sys.Date()`)'
 output:
-  html_document:
+  github_document:
     toc: yes
 bibliography: UFC_Judge_Scoring.bib
 always_allow_html: yes
@@ -79,17 +79,27 @@ The logistic regression algorithm was used to build a regression model to assign
 
 To explore the relationships between different features and between features and target, we plotted the pair-wise correlation matrix (Figure 1). The graph showed that features sig_str_att, head_att, total_str_att are highly correlated with the target. It also indicated there are some interaction between the features.
 
-```{r pair-wise, echo=FALSE, fig.cap="Figure 1. Correlation matrix for features and target.", out.width = '65%', fig.align="center"}
+```{r pair-wise, echo=FALSE, fig.cap="Figure 1. Correlation matrix for features and target.", fig.align="center"}
 knitr::include_graphics("../analysis/figures/fig_eda_01_corplot.png")
 ```
 
 
 We categorized the features into four groups and in each group we explored the relationships between features and target (Figure 2). In general, the results showed that all the distributions of features between winning and losing were overlapped for some extend in different groups. However, each group has some features with significant difference in the means, which indicating these features may be strong predictors for the target. The result is consistent with the feature-target correlation analysis. 
 
-```{r strike, echo=FALSE, fig.cap="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. Top left: striking features, top right: ground features, bottom left: attacks-to features, bottom right: attacks-from features.The feature explanations can be found in method section.", out.width = '40%',out.width = '50%', fig.show='hold'}
-knitr::include_graphics(c("../analysis/figures/fig_eda_02_striking_features_relationship.png", "../analysis/figures/fig_eda_03_ground_features_relationship.png"))
-knitr::include_graphics(c("../analysis/figures/fig_eda_04_attacks_to_features_relationship.png","../analysis/figures/fig_eda_05_attacks_from_features_relationship.png"))
+```{r jitter1, echo=FALSE, fig.align='center', fig.show='hold'}
+knitr::include_graphics(c("../analysis/figures/fig_eda_02_striking_features_relationship.png"))
+```
 
+```{r jitter2, echo=FALSE, fig.align='center', fig.show='hold'}
+knitr::include_graphics(c("../analysis/figures/fig_eda_03_ground_features_relationship.png"))
+```
+
+```{r jitter3, echo=FALSE, fig.align='center', fig.show='hold'}
+knitr::include_graphics(c("../analysis/figures/fig_eda_04_attacks_to_features_relationship.png"))
+```
+
+```{r jitter4, echo=FALSE, fig.cap="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. From top to bottom: striking features, ground features, attacks-to features, attacks-from features.The feature explanations can be found in method section.", fig.align="centre", fig.show='hold'}
+knitr::include_graphics(c("../analysis/figures/fig_eda_05_attacks_from_features_relationship.png"))
 ```
 
 <p>&nbsp;</p>
@@ -109,7 +119,7 @@ kable(table1_1, align = "cc", caption = "Table 1. REF selected features and thei
 To visulize how feature selection affects the model performance, we calculate the train and test errors using recursive feature elimination (RFE) with the "n_features_to_select" hyperprameter ranging from 1 to 22 (Figure 3). It is observed that when the "n_features_to_select" hyperprameter is 5 to 8,  the train and validation errors are relatively small and have balanced bias-variance trade-off. This is not quite consistent with the number of features we got from the RFE with cross validation. However, it is not suprising that the cross validation can help to better optimize the hyperparameters while manually chosing the hyperarameters may subject to variations.
 
 
-```{r choosing-features, echo=FALSE, fig.cap="Figure 3. The train and validation error for including different numbers of features in the model .", out.width = '60%', fig.align="center"}
+```{r choosing-features, echo=FALSE, fig.cap="Figure 3. The train and validation error for including different numbers of features in the model .", fig.align="center"}
 knitr::include_graphics("../analysis/figures/error.png")
 ```
 

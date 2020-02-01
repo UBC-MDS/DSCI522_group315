@@ -3,14 +3,6 @@ UFC Judge Scoring Analysis
 DSCI 522 group 315 </br>
 2020-01-23 (updated: 2020-02-01)
 
-  - [Summary](#summary)
-  - [Introduction](#introduction)
-  - [Methods](#methods)
-      - [Data](#data)
-      - [Analysis](#analysis)
-  - [Results & Discussion](#results-discussion)
-  - [References](#references)
-
 ## Summary
 
 In this study, we aim to assess whether the judging in the Ultimate
@@ -124,7 +116,8 @@ To explore the relationships between different features and between
 features and target, we plotted the pair-wise correlation matrix (Figure
 1). The graph showed that features sig\_str\_att, head\_att,
 total\_str\_att are highly correlated with the target. It also indicated
-there are some interaction between the features.
+there are some interaction between the
+features.
 
 <div class="figure" style="text-align: center">
 
@@ -145,7 +138,8 @@ between winning and losing were overlapped for some extend in different
 groups. However, each group has some features with significant
 difference in the means, which indicating these features may be strong
 predictors for the target. The result is consistent with the
-feature-target correlation analysis.
+feature-target correlation
+analysis.
 
 <img src="../analysis/figures/fig_eda_02_striking_features_relationship.png" width="1800" style="display: block; margin: auto;" />
 
@@ -187,7 +181,8 @@ to the Striking/Grappling group, such as the top second feature
 “head\_att”. Further information are needed to evaluate whether the
 four features belong to the ffective Striking/Grappling and cage/ring
 Control. Without further information, it may suggest these are some
-additional factors which the judges put higher weights on.
+additional factors which the judges put higher weights
+on.
 
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 
@@ -411,11 +406,12 @@ small and have balanced bias-variance trade-off. This is not quite
 consistent with the number of features we got from the RFE with cross
 validation. However, it is not suprising that the cross validation can
 help to better optimize the hyperparameters while manually chosing the
-hyperarameters may subject to variations.
+hyperarameters may subject to
+variations.
 
 <div class="figure" style="text-align: center">
 
-<img src="../analysis/figures/error.png" alt="Figure 3. The train and validation error for including different numbers of features in the model ." width="60%" />
+<img src="../analysis/figures/error.png" alt="Figure 3. The train and validation error for including different numbers of features in the model ." width="10980" />
 
 <p class="caption">
 
@@ -431,7 +427,8 @@ selected by RFE with cross validation and compared it with a logistic
 regression model using all the features. The accuracy on the train and
 validation data sets are reasonable for both models. The accuracy for
 the model with feature selection is slightly better than the model
-without feature selection.
+without feature
+selection.
 
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 
@@ -578,7 +575,7 @@ number of times to cross the centre line.
 
 ## References
 
-<div id="refs" class="references hanging-indent">
+<div id="refs" class="references">
 
 <div id="ref-GGally">
 
@@ -607,7 +604,7 @@ Language*. <https://CRAN.R-project.org/package=docopt>.
 <div id="ref-Hunter:2007">
 
 Hunter, J. D. 2007. “Matplotlib: A 2D Graphics Environment.” *Computing
-in Science & Engineering* 9 (3): 90–95.
+in Science & Engineering* 9 (3). IEEE COMPUTER SOC: 90–95.
 <https://doi.org/10.1109/MCSE.2007.55>.
 
 </div>
@@ -692,7 +689,7 @@ VanderPlas, Jacob, Brian Granger, Jeffrey Heer, Dominik Moritz, Kanit
 Wongsuphasawat, Arvind Satyanarayan, Eitan Lees, Ilia Timofeev, Ben
 Welsh, and Scott Sievert. 2018. “Altair: Interactive Statistical
 Visualizations for Python.” *Journal of Open Source Software*, December.
-<https://doi.org/10.21105/joss.01057>.
+The Open Journal. <https://doi.org/10.21105/joss.01057>.
 
 </div>
 
