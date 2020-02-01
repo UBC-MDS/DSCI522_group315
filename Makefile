@@ -17,7 +17,9 @@ all : data/01_raw/raw_total_fight_data.csv \
 	  analysis/figures/error.png \
 	  analysis/results.csv \
 	  analysis/weights.csv \
-	  report/report.md
+	  report/report.md \
+	  README.Rmd \
+	  README.md
 
 # download data
 data/01_raw/raw_total_fight_data.csv : src/01_download_data.R
@@ -61,6 +63,13 @@ report/report.md : report/report.Rmd \
 				   report/UFC_Judge_Scoring.bib
 	Rscript -e "rmarkdown::render('report/report.Rmd', output_format = 'github_document')"
 
+# render README
+README.md : README.Rmd \
+			report/UFC_Judge_Scoring.bib \
+			report/report.md
+	Rscript -e "rmarkdown::render('README.Rmd', output_format = 'github_document')"
+	rm -f README.html
+
 clean :
 	rm -f data/01_raw/raw_total_fight_data.csv
 	rm -f data/02_preprocessed/*.csv
@@ -69,3 +78,4 @@ clean :
 	rm -f analysis/*.csv
 	rm -f report/report.md
 	rm -f report/report.html
+	rm -f README.html

@@ -29,7 +29,10 @@ We built a regression model using the logistic regression algorithm to assign we
 
 ## Report
 
-The final report can be found [here](report/report.md).
+The final report can be found:
+
+- Rendered markdown version of the report [here](report/report.md).
+- Rendered html version of the report [here](https://ubc-mds.github.io/DSCI522_group315/report/report.html)
 
 ## Usage
 

@@ -13,7 +13,6 @@ bibliography: UFC_Judge_Scoring.bib
 ```{r setup, include=FALSE}
 print(getwd())
 knitr::opts_chunk$set(echo = FALSE)
-library(here)
 library(knitr)
 library(kableExtra)
 library(tidyverse)

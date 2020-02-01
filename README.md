@@ -42,7 +42,11 @@ UFC rules and put weights on some additional factors.
 
 ## Report
 
-The final report can be found [here](report/report.md).
+The final report can be found:
+
+  - Rendered markdown version of the report [here](report/report.md).
+  - Rendered html version of the report
+    [here](https://ubc-mds.github.io/DSCI522_group315/report/report.html)
 
 ## Usage
 
@@ -94,7 +98,7 @@ for PC users.
 
 ## References
 
-<div id="refs" class="references hanging-indent">
+<div id="refs" class="references">
 
 <div id="ref-UFC-dataset">
 
