@@ -59,7 +59,7 @@ analysis/weights.csv : src/04_ml_analysis.py
 # render final report
 report/report.md : report/report.Rmd \
 				   report/UFC_Judge_Scoring.bib
-	Rscript -e "rmarkdown::render('report/report.Rmd', output_format = 'github_document', knit_root_dir='report/')"
+	Rscript -e "rmarkdown::render('report/report.Rmd', output_format = 'github_document')"
 
 clean :
 	rm -f data/01_raw/raw_total_fight_data.csv

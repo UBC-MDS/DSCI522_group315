@@ -42,8 +42,7 @@ UFC rules and put weights on some additional factors.
 
 ## Report
 
-The final report can be found
-[here](https://github.com/UBC-MDS/DSCI522_group315/blob/master/report/report.md).
+The final report can be found [here](report/report.md).
 
 ## Usage
 
