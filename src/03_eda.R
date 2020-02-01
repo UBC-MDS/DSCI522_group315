@@ -3,14 +3,11 @@
 
 "
 This script creates EDA plots and tables.
-
 Usage: 03_eda.R --X_train_path=<X_train_path> --y_train_path=<y_train_path> --out_dir=<out_dir>
-
 Options:
 --X_train_path=<X_train_path>           Path of the training data features
 --y_train_path=<y_train_path>            Path of the training data targets
 --out_dir=<out_dir>                     Directory path to export figures
-
 Example: 
 Rscript src/03_eda.R --X_train_path=data/02_preprocessed/X_train.csv --y_train_path=data/02_preprocessed/y_train.csv --out_dir=analysis/figures/
 " -> doc
@@ -103,6 +100,33 @@ make_class_count_bar_plot <- function(df) {
 #'
 #' @return ggplot object
 make_box_jitter_plot <- function(df, response, ...) {
+  variable_names <- c(
+    'sig_str_att' = "Sig. Strikes Attempted",
+    'sig_str_landed'= "Sig. Strikes Landed",
+    'sig_str_pct' = "Sig. Strikes Percent",
+    'total_str_att'  = "Total Strikes Attempted",
+    'total_str_landed' = "Total Strikes Landed",
+    'td_att' = "Takedowns Attempted",
+    'td_landed' = "Successful Takedowns Landed",
+    'td_pct' = "Successful Takedowns Percent",
+    'sub_att' = "Submissions Attempted",
+    'pass' = "Guard Passes Achieved",
+    'rev' = "Grappling Reversals",
+    'head_att' = "Head Strikes Attempted",
+    'head_landed' = "Head Strikes Landed",
+    'body_att' = "Body Strikes Attempted",
+    'body_landed' = "Body Strikes Lanaded",
+    'leg_att' = "Leg Strikes Attempted",
+    'leg_landed' = "Leg Strikes Landed",
+    'distance_att' = "Strikes Attempted from Distance",
+    'distance_landed' = "Strikes Landed from Distance",
+    'clinch_att' = "Strikes Attempted from Clinch",
+    'clinch_landed' = "Strikes Landed from Clinch",
+    'ground_att' = "Strikes Attempted from Ground",
+    'ground_landed' = "Strikes Landed from Ground"
+  )
+  
+  
   df <- df %>%
     select({{ response }}, all_of(...)) %>%
     pivot_longer(cols = -{{ response }}) %>%
@@ -118,6 +142,9 @@ make_box_jitter_plot <- function(df, response, ...) {
     labels = c("Blue Loss", "Blue Win")
   )
   
+  idx <- match(df$name, names(variable_names))
+  df$names2 <- variable_names[idx]
+  
   df %>%
     ggplot(aes(x = {{ response }}, y = b_value, colour = {{ response }})) +
     geom_jitter(alpha = 1 / 4, width = 1 / 4) +
@@ -129,7 +156,8 @@ make_box_jitter_plot <- function(df, response, ...) {
       notch = TRUE
     ) +
     scale_y_continuous(breaks = c(0, 0.5, 1)) +
-    facet_wrap(~name, nrow=1) +
+    facet_wrap(~names2, nrow=1, labeller = labeller(name = variable_names,
+               names2 = label_wrap_gen(10))) +
     labs(
       x = element_blank(),
       y = "Proportion of feature for Blue"
@@ -226,7 +254,7 @@ main <- function(X_train_path, y_train_path, out_dir){
   ggsave(paste0(out_dir, "fig_eda_05_attacks_from_features_relationship.png"),
          height = 4, width = 6, units = "in",
          make_box_jitter_plot(df = df, response = blue_win, attacks_from_features))
-
+  
   #////////////////////////////////////
   # Write tables
   #////////////////////////////////////
