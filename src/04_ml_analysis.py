@@ -118,7 +118,7 @@ def main(input_path, out_path, out_path_csv):
   train_sel_score = round(lr_select.score(X_train_sel, y_train), 4)
   test_sel_score = round(lr_select.score(X_test_sel, y_test), 4)
   
-  models = ["Training Accuracy - No Feature Selection", "Training Accuracy - Selected Features", "Testing Accuracy - No Feature Selection", "Testing Accuracy - Selected Features"]
+  models = ["Training Accuracy - No Feature Selection", "Testing Accuracy - No Feature Selection", "Training Accuracy - Selected Features", "Testing Accuracy - Selected Features"]
   scores = [train_score, test_score, train_sel_score, test_sel_score]
   results = pd.DataFrame({'Model' : models, 'Score' : scores})
   
