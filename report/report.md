@@ -1,7 +1,7 @@
 UFC Judge Scoring Analysis
 ================
 DSCI 522 group 315 </br>
-2020-01-23 (updated: 2020-01-30)
+2020-01-23 (updated: 2020-01-31)
 
 ## Summary
 
@@ -116,7 +116,8 @@ To explore the relationships between different features and between
 features and target, we plotted the pair-wise correlation matrix (Figure
 1). The graph showed that features sig\_str\_att, head\_att,
 total\_str\_att are highly correlated with the target. It also indicated
-there are some interaction between the features.
+there are some interaction between the
+features.
 
 <div class="figure" style="text-align: center">
 
@@ -137,7 +138,8 @@ between winning and losing were overlapped for some extend in different
 groups. However, each group has some features with significant
 difference in the means, which indicating these features may be strong
 predictors for the target. The result is consistent with the
-feature-target correlation analysis.
+feature-target correlation
+analysis.
 
 <div class="figure">
 
@@ -171,7 +173,8 @@ UFC official rules (The ABC MMA Rules Committee 2017).This indicates the
 rules were generally followed by the judges. Four features do not belong
 to the Striking/Grappling group, such as the top second feature
 “head\_att”, suggesting there are some other factors which the judges
-put higher weights on.
+put higher weights
+on.
 
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 
@@ -391,7 +394,8 @@ errors using recursive feature elimination (RFE) with the
 “n\_features\_to\_select” hyperprameter ranging from 1 to 22 (Figure
 3). It is observed that when the “n\_features\_to\_select” hyperprameter
 is between 8 and 11, the train and validation errors are relatively
-small, confirming the results from RFE with cross validation.
+small, confirming the results from RFE with cross
+validation.
 
 <div class="figure" style="text-align: center">
 
@@ -411,7 +415,8 @@ selected by RFE with cross validation and compared it with a logistic
 regression model using all the features. The accuracy on the train and
 validation data sets are reasonable for both models. The accuracy for
 the model with feature selection is slightly better than the model
-without feature selection.
+without feature
+selection.
 
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 
@@ -542,7 +547,7 @@ judgement on different cases.
 
 ## References
 
-<div id="refs" class="references hanging-indent">
+<div id="refs" class="references">
 
 <div id="ref-GGally">
 
@@ -571,7 +576,7 @@ Language*. <https://CRAN.R-project.org/package=docopt>.
 <div id="ref-Hunter:2007">
 
 Hunter, J. D. 2007. “Matplotlib: A 2D Graphics Environment.” *Computing
-in Science & Engineering* 9 (3): 90–95.
+in Science & Engineering* 9 (3). IEEE COMPUTER SOC: 90–95.
 <https://doi.org/10.1109/MCSE.2007.55>.
 
 </div>
@@ -656,7 +661,7 @@ VanderPlas, Jacob, Brian Granger, Jeffrey Heer, Dominik Moritz, Kanit
 Wongsuphasawat, Arvind Satyanarayan, Eitan Lees, Ilia Timofeev, Ben
 Welsh, and Scott Sievert. 2018. “Altair: Interactive Statistical
 Visualizations for Python.” *Journal of Open Source Software*, December.
-<https://doi.org/10.21105/joss.01057>.
+The Open Journal. <https://doi.org/10.21105/joss.01057>.
 
 </div>
 

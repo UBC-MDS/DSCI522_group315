@@ -32,24 +32,17 @@ The final report can be found [here](https://github.com/UBC-MDS/DSCI522_group315
 
 ## Usage
 
-To replicate the analysis, you can clone this GitHub repository and install the [dependencies](#dependencies). Then you can run the following commands from the root directory of this project:
+To replicate the analysis, you can clone this GitHub repository and install the [dependencies](#dependencies). Then you can run the following command in the terminal from the root directory of this project:
 
 ```
-# download data
-Rscript src/01_download_data.R --url=https://github.com/SamEdwardes/ufc-data/raw/master/raw_total_fight_data.csv --out_file=data/01_raw/raw_total_fight_data.csv
-
-# pre-process data 
-Rscript src/02_preprocess_data.R --input_path=data/01_raw/raw_total_fight_data.csv --output_path=data/02_preprocessed/ --seed_num=1993
-
-# run EDA and create EDA figures
-Rscript src/03_eda.R --X_train_path=data/02_preprocessed/X_train.csv --y_train_path=data/02_preprocessed/y_train.csv --out_dir=analysis/figures/
-
-# Optimize and test model
-python src/04_ml_analysis.py --input_path_Xtrain=data/02_preprocessed/X_train.csv --input_path_ytrain=data/02_preprocessed/y_train.csv --input_path_Xtest=data/02_preprocessed/X_test.csv --input_path_ytest=data/02_preprocessed/y_test.csv --out_path=analysis/figures/ --out_path_csv=analysis/
-
-# render final report
-Rscript -e "rmarkdown::render('report/report.Rmd', output_format = 'github_document')"
+make all
 ```
+To remove all the anlaysis and retore the repo to a clean state, you can run the following command in the terminal from the root directory of this project:
+
+```
+make clean
+```
+
 
 ## Dependencies
 - Python 3.7.3 and Python packages:
@@ -64,7 +57,13 @@ Rscript -e "rmarkdown::render('report/report.Rmd', output_format = 'github_docum
 
 - chromedriver-binary==80.0.3987.16.0
 
-  Note: Users may have an issue producing altair plots. You may need to download the latest version of ChomeDriver. For further information see [here](https://github.com/UBC-MDS/DSCI522_group315/issues/17).
+  Note: Users may have an issue producing altair plots. You may need to download the latest version of ChromeDriver.Instructions for installing chromeDriver:
+  ```
+  conda install selenium
+  conda install -c conda-forge python-chromedriver-binary
+  ```
+  You need to include the ChromeDriver location in your system PATH. Please follow the instructions [here](https://www.kenst.com/2015/03/including-the-chromedriver-location-in-macos-system-path/) for mac users and [here](https://www.google.com/search?q=Including+the+ChromeDriver+location+in+PC&oq=Including+the+ChromeDriver+location+in+PC&aqs=chrome..69i57j69i60l2.2395j0j7&sourceid=chrome&ie=UTF-8) for PC users.
+  
   
 - R version 3.6.1 and R packages:
   - docopt==0.6.1
