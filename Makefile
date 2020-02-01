@@ -52,12 +52,7 @@ analysis/figures/confusion_matrix.png \
 analysis/figures/error.png \
 analysis/results.csv \
 analysis/weights.csv : src/04_ml_analysis.py
-	python src/04_ml_analysis.py --input_path_Xtrain=data/02_preprocessed/X_train.csv \
-								 --input_path_ytrain=data/02_preprocessed/y_train.csv \
-								 --input_path_Xtest=data/02_preprocessed/X_test.csv \
-								 --input_path_ytest=data/02_preprocessed/y_test.csv \
-								 --out_path=analysis/figures/ \
-								 --out_path_csv=analysis/
+	python src/04_ml_analysis.py --input_path=data/02_preprocessed/ --out_path=analysis/figures/ --out_path_csv=analysis/
 
 # render final report
 report/report.md : report/report.Rmd \
