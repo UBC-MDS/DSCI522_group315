@@ -46,7 +46,7 @@ The final report can be found:
 
   - Rendered markdown version of the report [here](report/report.md).
   - Rendered html version of the report
-    [here](https://ubc-mds.github.io/DSCI522_group315/report/report.html)
+    [here](https://ubc-mds.github.io/DSCI522_group315/report/report.html).
 
 ## Usage
 
