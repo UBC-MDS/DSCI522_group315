@@ -65,6 +65,8 @@ Command Prompt, replace /$(pwd) with PATH\_ON\_YOUR\_COMPUTER.*
 
 <!-- end list -->
 
+    docker build --tag dsci-522-ufc . 
+
     docker run -it --rm -v $(pwd):/root/ufc dsci-522-ufc cd root/ufc make all
 
 **2. After installing all dependencies (does not depend on Docker)**
