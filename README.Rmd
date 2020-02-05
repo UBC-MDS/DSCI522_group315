@@ -36,6 +36,21 @@ The final report can be found:
 
 ## Usage
 
+**1. Using Docker**
+
+*note - the instructions in this section also depends on running this in a unix shell (e.g., terminal or Git Bash), if you are using Windows Command Prompt, replace /$(pwd) with PATH_ON_YOUR_COMPUTER.*
+
+1. Install [Docker](https://www.docker.com/get-started)
+2. Download/clone this repository
+3. Use the command line to navigate to the root of this downloaded/cloned repo
+4. Type the following:
+
+```
+docker run -it --rm -v $(pwd):/root/ufc dsci-522-ufc cd root/ufc make all
+```
+
+**2. After installing all dependencies (does not depend on Docker)**
+
 To replicate the analysis, you can clone this GitHub repository and install the [dependencies](#dependencies). Then you can run the following command in the terminal from the root directory of this project:
 
 ```
@@ -62,14 +77,17 @@ make clean
 - chromedriver-binary==80.0.3987.16.0
 
 Note: Users may have an issue producing altair plots. You may need to download the latest version of ChromeDriver.Instructions for installing chromeDriver:
-  ```
-  conda install selenium
-  conda install -c conda-forge python-chromedriver-binary
-  ```
-  You need to include the ChromeDriver location in your system PATH. Please follow the instructions [here](https://www.kenst.com/2015/03/including-the-chromedriver-location-in-macos-system-path/) for mac users and [here](https://www.google.com/search?q=Including+the+ChromeDriver+location+in+PC&oq=Including+the+ChromeDriver+location+in+PC&aqs=chrome..69i57j69i60l2.2395j0j7&sourceid=chrome&ie=UTF-8) for PC users.
+
+```
+conda install selenium
+conda install -c conda-forge python-chromedriver-binary
+```
+
+You need to include the ChromeDriver location in your system PATH. Please follow the instructions [here](https://www.kenst.com/2015/03/including-the-chromedriver-location-in-macos-system-path/) for mac users and [here](https://www.google.com/search?q=Including+the+ChromeDriver+location+in+PC&oq=Including+the+ChromeDriver+location+in+PC&aqs=chrome..69i57j69i60l2.2395j0j7&sourceid=chrome&ie=UTF-8) for PC users.
   
   
 - R version 3.6.1 and R packages:
+  - caret==6.0-85
   - docopt==0.6.1
   - tidyverse==1.3.0
   - janitor==1.2.0
