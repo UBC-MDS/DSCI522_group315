@@ -14,7 +14,6 @@ Example: Rscript src/01_download_data.R --url=https://github.com/SamEdwardes/ufc
 " -> doc
 
 library(docopt)
-library(RCurl)
 library(testthat)
 library(stringr)
 
