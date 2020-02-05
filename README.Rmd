@@ -46,10 +46,6 @@ The final report can be found:
 4. Type the following:
 
 ```
-docker build --tag dsci-522-ufc . 
-```
-
-```
 docker run -it --rm -v $(pwd):/root/ufc dsci-522-ufc cd root/ufc make all
 ```
 
