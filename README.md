@@ -60,10 +60,11 @@ Command Prompt, replace /$(pwd) with PATH\_ON\_YOUR\_COMPUTER.*
 2.  Download/clone this repository
 3.  Use the command line to navigate to the root of this
     downloaded/cloned repo
-4.  Type the
-    following:
+4.  Type the following:
 
 <!-- end list -->
+
+    docker build --tag dsci-522-ufc . 
 
     docker run -it --rm -v $(pwd):/root/ufc dsci-522-ufc cd root/ufc make all
 
@@ -122,7 +123,7 @@ for PC users.
 
 ## References
 
-<div id="refs" class="references">
+<div id="refs" class="references hanging-indent">
 
 <div id="ref-UFC-dataset">
 

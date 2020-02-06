@@ -45,6 +45,11 @@ The final report can be found:
 3. Use the command line to navigate to the root of this downloaded/cloned repo
 4. Type the following:
 
+
+```
+docker build --tag dsci-522-ufc . 
+```
+
 ```
 docker run -it --rm -v $(pwd):/root/ufc dsci-522-ufc cd root/ufc make all
 ```
