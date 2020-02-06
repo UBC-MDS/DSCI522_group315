@@ -62,11 +62,14 @@ Command Prompt, replace /$(pwd) with PATH\_ON\_YOUR\_COMPUTER.*
     downloaded/cloned repo
 4.  Type the following:
 
-<!-- end list -->
+*first build the image*
 
     docker build --tag dsci-522-ufc . 
 
-    docker run -it --rm -v $(pwd):/root/ufc dsci-522-ufc cd root/ufc make all
+*then run the
+    container*
+
+    docker run --rm -v $(pwd):/root/ufc dsci-522-ufc cd root/ufc make all
 
 **2. After installing all dependencies (does not depend on Docker)**
 
@@ -123,7 +126,7 @@ for PC users.
 
 ## References
 
-<div id="refs" class="references hanging-indent">
+<div id="refs" class="references">
 
 <div id="ref-UFC-dataset">
 
