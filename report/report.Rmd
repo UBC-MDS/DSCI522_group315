@@ -25,7 +25,7 @@ table2 <- read_csv("../analysis/results.csv")
 
 ## Summary
 
-In this study, we aim to assess whether the judging in the Ultimate Fighting Championship (UFC) is consistent with the official rules and guidance. To answer this question, we need to identify the key predictors for winning determined by the judges based on the performance and evaluate whether these predictors are consistent with the priorities of round assessments according to the official rules. We built a regression model using the logistic regression algorithm to assign weights to the features and used recursive feature elimination (RFE) approach to identify the strong predictors. Among the selected `r nrow(table1)` features by RFE, 7 features are related to Striking/Grappling performance which should be considered as the top factor in judgment based on the UFC official rules. Our final logistic regression model using these selected features performed well on validation data set with accuracy score of `r round(table2$Score[4],2)`. It correctly predicted 368 out of 446 test cases and incorrectly predicted 78 cases with 40 being false positive and 38 false negative. Our results showed that the judges generally comply to the UFC rules and put weights on some additional factors.
+In this study, we aim to assess whether the judging in the Ultimate Fighting Championship (UFC) is consistent with the official rules and guidance. To answer this question, we need to identify the key predictors for winning determined by the judges based on the performance and evaluate whether these predictors are consistent with the priorities of round assessments according to the official rules. We built a regression model using the logistic regression algorithm to assign weights to the features and used recursive feature elimination (RFE) approach to identify the strong predictors. Among the selected `r nrow(table1)` features by RFE, 7 features are related to Striking/Grappling performance which should be considered as the top factor in judgment based on the UFC official rules. Our final logistic regression model using these selected features performed well on validation data set with accuracy score of `r round(table2[1,2],2)`. It correctly predicted 368 out of 446 test cases and incorrectly predicted 78 cases with 40 being false positive and 38 false negative. Our results showed that the judges generally comply to the UFC rules and put weights on some additional factors.
 
 
 ## Introduction
@@ -126,16 +126,14 @@ We built our final logistic regression model using the 11 features selected by R
 
 ```{r RFE error, echo=FALSE, message=FALSE, out.width = '40%'}
 table2 <- read_csv("../analysis/results.csv")
-table3 <- table2 %>% 
-  mutate(Score = round(Score, 3))
-kable(table3, align = "cc", caption = "Table 2. Accuracy of model performance on train and validation data sets.") %>%
+kable(table2, align = "cc", caption = "Table 2. Accuracy of model performance on train and validation data sets.") %>%
   kable_styling("striped", position="center", full_width = FALSE) 
 ```
 
 
 The confusion matrix showed similar accuracy, where our model correctly predicted 368 out of 446 validation cases and incorrectly predicted 78 cases with 40 being false positive and 38 false negative cases (Figure 4). 
 
-```{r confusion-matrix, echo=FALSE, fig.cap="Figure 4. Confusion matrix of model performance on test data on validation data set.", out.width = '60%', fig.align="center"}
+```{r confusion-matrix, echo=FALSE, fig.cap="Figure 4. Confusion matrix of model performance on test data on validation data set.", out.width = '80%', fig.align="center"}
 knitr::include_graphics("../analysis/figures/confusion_matrix.png")
 ```
 
