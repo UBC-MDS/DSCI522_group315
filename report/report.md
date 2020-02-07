@@ -33,7 +33,7 @@ often controversy when the winning is needed to be decided by judges
 based on the competitors’ performance (instead of ending by submission
 or technical knockout). The official rules provide general guidance in
 judging the winner. The criteria sets priority from high to low ranking
-effective Striking/Grappling, effective Striking/Grappling and cage/ring
+effective Striking/Grappling, effective Aggressiveness and cage/ring
 Control(The ABC MMA Rules Committee 2017). As more and more controversy
 of the judging decisions raised, a systematic analysis of the UFC data
 would be very informative to evaluate the overall quality of UFC judging
@@ -123,7 +123,7 @@ features.
 
 <div class="figure" style="text-align: center">
 
-<img src="../analysis/figures/fig_eda_01_corplot.png" alt="Figure 1. Correlation matrix for features and target."  />
+<img src="../analysis/figures/fig_eda_01_corplot.png" alt="Figure 1. Correlation matrix for features and target." width="75%" />
 
 <p class="caption">
 
@@ -140,31 +140,25 @@ square where the column from the first feature and the row of the second
 feature intersect. This is the correlation between the two features*
 
 We categorized the features into four groups and in each group we
-explored the relationships between features and target (Figure 2). In
-general, the results showed that all the distributions of features
-between winning and losing were overlapped for some extend in different
-groups. However, each group has some features with significant
-difference in the means, which indicating these features may be strong
-predictors for the target. The result is consistent with the
-feature-target correlation
+explored the relationships between features and target (Figure 2,
+[Supplementary Figure 1 & 2](#Suppl.)). In general, the results showed
+that all the distributions of features between winning and losing were
+overlapped for some extend in different groups. However, each group has
+some features with significant difference in the means, indicating these
+features may be strong predictors for the target. The result is
+consistent with the feature-target correlation
 analysis.
 
 <img src="../analysis/figures/fig_eda_02_striking_features_relationship.png" width="75%" style="display: block; margin: auto;" />
 
-<img src="../analysis/figures/fig_eda_03_ground_features_relationship.png" width="75%" style="display: block; margin: auto;" />
-
-<img src="../analysis/figures/fig_eda_04_attacks_to_features_relationship.png" width="75%" style="display: block; margin: auto;" />
-
 <div class="figure" style="text-align: center">
 
-<img src="../analysis/figures/fig_eda_05_attacks_from_features_relationship.png" alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. From top to bottom: striking features, ground features, attacks-to features, attacks-from features.The feature explanations can be found in method section." width="75%" />
+<img src="../analysis/figures/fig_eda_03_ground_features_relationship.png" alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different categories." width="75%" />
 
 <p class="caption">
 
 Figure 2. Comparison of the distributions of the predictors between
-winning and losing in different groups. From top to bottom: striking
-features, ground features, attacks-to features, attacks-from
-features.The feature explanations can be found in method section.
+winning and losing in different categories.
 
 </p>
 
@@ -227,7 +221,7 @@ Total significant strikes attempted on opponent
 
 <td style="text-align:center;">
 
-\-3.429
+\-3.43
 
 </td>
 
@@ -243,7 +237,7 @@ Number of strikes to opponents head attempted
 
 <td style="text-align:center;">
 
-\-3.224
+\-3.22
 
 </td>
 
@@ -259,7 +253,7 @@ Total strikes attempted on opponent
 
 <td style="text-align:center;">
 
-\-2.897
+\-2.90
 
 </td>
 
@@ -275,7 +269,7 @@ Number of takedowns attempted on opponent
 
 <td style="text-align:center;">
 
-\-2.342
+\-2.34
 
 </td>
 
@@ -291,7 +285,7 @@ Number of strikes attempted from a distance
 
 <td style="text-align:center;">
 
-\-1.489
+\-1.49
 
 </td>
 
@@ -307,7 +301,7 @@ Number of strikes landed from a distance
 
 <td style="text-align:center;">
 
-1.346
+1.35
 
 </td>
 
@@ -323,7 +317,7 @@ Number of guard passes achieved
 
 <td style="text-align:center;">
 
-\-1.263
+\-1.26
 
 </td>
 
@@ -339,7 +333,7 @@ Total strikes landed on opponent
 
 <td style="text-align:center;">
 
-\-1.125
+\-1.13
 
 </td>
 
@@ -355,7 +349,7 @@ Percent of takedowns successfully completed
 
 <td style="text-align:center;">
 
-1.113
+1.11
 
 </td>
 
@@ -371,7 +365,7 @@ Number of takedowns successfully completed
 
 <td style="text-align:center;">
 
-0.716
+0.72
 
 </td>
 
@@ -387,7 +381,7 @@ Number of strikes attempted while on the ground
 
 <td style="text-align:center;">
 
-\-0.673
+\-0.67
 
 </td>
 
@@ -414,7 +408,7 @@ variations.
 
 <div class="figure" style="text-align: center">
 
-<img src="../analysis/figures/error.png" alt="Figure 3. The train and validation error for including different numbers of features in the model ."  />
+<img src="../analysis/figures/error.png" alt="Figure 3. The train and validation error for including different numbers of features in the model ." width="75%" />
 
 <p class="caption">
 
@@ -558,9 +552,39 @@ explored.
 
 Our model is also limited to our dataset. We would also like to get more
 data from outside the Striking/Grappling variables with more data to
-describe Cage/Ring control. Options for these further variables include
-average distance from the cage, number of times behind the opponent,
-number of times to cross the center line.
+describe aggressiveness and cage/ring control. Options for these further
+variables include average distance from the cage, number of times behind
+the opponent, number of times to cross the center
+line.
+
+## Supplementary Figures
+
+<div class="figure" style="text-align: center">
+
+<img src="../analysis/figures/fig_eda_04_attacks_to_features_relationship.png" alt="Supplementary Figure 1. Comparison of the distributions of the predictors between winning and losing for 'attacks to' features." width="75%" />
+
+<p class="caption">
+
+Supplementary Figure 1. Comparison of the distributions of the
+predictors between winning and losing for ‘attacks to’
+features.
+
+</p>
+
+</div>
+
+<div class="figure" style="text-align: center">
+
+<img src="../analysis/figures/fig_eda_05_attacks_from_features_relationship.png" alt="Supplementary Figure 2. Comparison of the distributions of the predictors between winning and losing for 'attacks from' features." width="75%" />
+
+<p class="caption">
+
+Supplementary Figure 2. Comparison of the distributions of the
+predictors between winning and losing for ‘attacks from’ features.
+
+</p>
+
+</div>
 
 ## References
 
