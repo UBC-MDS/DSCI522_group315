@@ -56,21 +56,32 @@ The final report can be found:
 a unix shell (e.g., terminal or Git Bash), if you are using Windows
 Command Prompt, replace /$(pwd) with PATH\_ON\_YOUR\_COMPUTER.*
 
+*note - the docker image is somewhat large at 7.49 GB.*
+
 1.  Install [Docker](https://www.docker.com/get-started)
 2.  Download/clone this repository
 3.  Use the command line to navigate to the root of this
     downloaded/cloned repo
-4.  Type the following:
+4.  Type the
+    following:
+
+#### Option 1: Pull from Dockerhub
+
+    docker run --rm -v $(pwd):/root/ufc samedwardes/dsci-522-ufc cd root/ufc make all
+
+#### Option 2: Build from Dockerfile
 
 *first build the image*
 
     docker build --tag dsci-522-ufc . 
 
-*then run the container*
+*then run the
+    container*
 
     docker run --rm -v $(pwd):/root/ufc dsci-522-ufc cd root/ufc make all
 
-*to remove all the anlaysis and retore the repo to a clean state*
+*to remove all the anlaysis and retore the repo to a clean
+    state*
 
     docker run --rm -v $(pwd):/root/ufc dsci-522-ufc cd root/ufc make clean
 
@@ -130,7 +141,7 @@ for PC users.
 
 ## References
 
-<div id="refs" class="references hanging-indent">
+<div id="refs" class="references">
 
 <div id="ref-UFC-dataset">
 

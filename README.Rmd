@@ -40,21 +40,35 @@ The final report can be found:
 
 *note - the instructions in this section also depends on running this in a unix shell (e.g., terminal or Git Bash), if you are using Windows Command Prompt, replace /$(pwd) with PATH_ON_YOUR_COMPUTER.*
 
+*note - the docker image is somewhat large at 7.49 GB.*
+
 1. Install [Docker](https://www.docker.com/get-started)
 2. Download/clone this repository
 3. Use the command line to navigate to the root of this downloaded/cloned repo
 4. Type the following:
 
+#### Option 1: Pull from Dockerhub
+
+```
+docker run --rm -v $(pwd):/root/ufc samedwardes/dsci-522-ufc cd root/ufc make all
+```
+
+#### Option 2: Build from Dockerfile
+
 *first build the image*
+
 ```
 docker build --tag dsci-522-ufc . 
 ```
+
 *then run the container*
+
 ```
 docker run --rm -v $(pwd):/root/ufc dsci-522-ufc cd root/ufc make all
 ```
 
 *to remove all the anlaysis and retore the repo to a clean state*
+
 ```
 docker run --rm -v $(pwd):/root/ufc dsci-522-ufc cd root/ufc make clean
 ```
@@ -67,6 +81,7 @@ To replicate the analysis, you can clone this GitHub repository and install the 
 ```
 make all
 ```
+
 To remove all the anlaysis and retore the repo to a clean state, you can run the following command in the terminal from the root directory of this project:
 
 ```
