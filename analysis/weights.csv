@@ -1,12 +1,12 @@
 Features,Weights
-sig_str_att,-3.4293
-head_att,-3.2238
-total_str_att,-2.8965
-td_att,-2.3423
-distance_att,-1.4892
-distance_landed,1.3456
-pass,-1.2626
-total_str_landed,-1.1251
-td_pct,1.1131
-td_landed,0.7164
-ground_att,-0.6729
+Total significant strikes attempted on opponent,-3.4293
+Number of strikes to opponents head landed,-3.2238
+Total strikes attempted on opponent,-2.8965
+Number of takedowns attempted on opponent,-2.3423
+Number of strikes attempted from a distance,-1.4892
+Number of strikes landed from a distance,1.3456
+Number of guard passes achieved,-1.2626
+Total strikes landed on opponent,-1.1251
+Percent of takedowns successfully completed,1.1131
+Number of takedowns successfully completed,0.7164
+Number of strikes attempted while on the ground,-0.6729
