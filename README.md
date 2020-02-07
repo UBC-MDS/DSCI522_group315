@@ -50,7 +50,7 @@ The final report can be found:
 
 ## Usage
 
-**1. Using Docker**
+### Using Docker
 
 *note - the instructions in this section also depends on running this in
 a unix shell (e.g., terminal or Git Bash), if you are using Windows
@@ -66,12 +66,15 @@ Command Prompt, replace /$(pwd) with PATH\_ON\_YOUR\_COMPUTER.*
 
     docker build --tag dsci-522-ufc . 
 
-*then run the
-    container*
+*then run the container*
 
     docker run --rm -v $(pwd):/root/ufc dsci-522-ufc cd root/ufc make all
 
-**2. After installing all dependencies (does not depend on Docker)**
+*to remove all the anlaysis and retore the repo to a clean state*
+
+    docker run --rm -v $(pwd):/root/ufc dsci-522-ufc cd root/ufc make clean
+
+### Without using Docker (requres the installment of all dependencies)
 
 To replicate the analysis, you can clone this GitHub repository and
 install the [dependencies](#dependencies). Then you can run the
@@ -123,10 +126,11 @@ for PC users.
       - knitr==1.27.2
       - testthat == 2.2.1
       - tidyselect == 1.1.0
+      - ggridges == 0.5.2
 
 ## References
 
-<div id="refs" class="references">
+<div id="refs" class="references hanging-indent">
 
 <div id="ref-UFC-dataset">
 

@@ -3,6 +3,15 @@ UFC Judge Scoring Analysis
 DSCI 522 group 315 </br>
 2020-01-23 (updated: 2020-02-07)
 
+  - [Summary](#summary)
+  - [Introduction](#introduction)
+  - [Methods](#methods)
+      - [Data](#data)
+      - [Analysis](#analysis)
+  - [Results & Discussion](#results-discussion)
+  - [Supplementary Figures](#Suppl.)
+  - [References](#references)
+
 ## Summary
 
 In this study, we aim to assess whether the judging in the Ultimate
@@ -39,9 +48,15 @@ of the judging decisions raised, a systematic analysis of the UFC data
 would be very informative to evaluate the overall quality of UFC judging
 system.
 
-In this project, we are trying to identify the key predictors for
-winning in previous UFC events and examine whether these key predictors
-are in line with the UFC official guidance. This analysis is very
+The purpose of this analysis is to find out if the judges make decisions
+based on the crucial factors according to the UFC rules. In our
+analysis, we are trying to identify the key predictors for winning in
+previous UFC events and examine whether these key predictors are in line
+with the UFC official guidance. Recursive feature elimination (RFE) is a
+good approach to find out the important features (with higher weights)
+for winning the UFC fight. And by comparing the RFE returned features
+with the factors set by UFC official rules, we can evaluate whether the
+judges followed UFC rules and make fair decisions. This analysis is very
 significant because it may serve as a quality control approach for the
 UFC judging system and help to improve the rules and training strategies
 for the judges in the future.
@@ -104,13 +119,14 @@ predict on the validation data set. The R and Python programming
 languages (R Core Team 2019; Van Rossum and Drake 2009) and the
 following R and Python packages were used to perform the analysis:
 docopt (de Jonge 2018), janitor (Sam Firke 2020), tidyverse (Wickham
-2017), GGally (al 2018), docopt (Keleshev 2014), os (Van Rossum and
-Drake 2009), requests (Reitz 2019), Pandas (McKinney 2010), numpy
-(Oliphant 2006), altair (VanderPlas et al. 2018), matplotlib (Hunter
-2007), selenium (Muthukadan 2019), scikit-learn (Buitinck et al. 2013),
-chromedriver-binary (Kaiser 2019). The scripts for generating the
-analysis and the report together with all the relevant information can
-be found [here](https://github.com/UBC-MDS/DSCI522_group315).
+2017), GGally (et.al 2018), ggridges (Wilke 2020), docopt (Keleshev
+2014), os (Van Rossum and Drake 2009), requests (Reitz 2019), Pandas
+(McKinney 2010), numpy (Oliphant 2006), altair (VanderPlas et al. 2018),
+matplotlib (Hunter 2007), selenium (Muthukadan 2019), scikit-learn
+(Buitinck et al. 2013), chromedriver-binary (Kaiser 2019). The scripts
+for generating the analysis and the report together with all the
+relevant information can be found
+[here](https://github.com/UBC-MDS/DSCI522_group315).
 
 ## Results & Discussion
 
@@ -118,8 +134,7 @@ To explore the relationships between different features and between
 features and target, we plotted the pair-wise correlation matrix (Figure
 1). The graph showed that features sig\_str\_att, head\_att,
 total\_str\_att are highly correlated with the target. It also indicated
-there are some interaction between the
-features.
+there are some interaction between the features.
 
 <div class="figure" style="text-align: center">
 
@@ -146,8 +161,7 @@ that all the distributions of features between winning and losing were
 overlapped for some extend in different groups. However, each group has
 some features with significant difference in the means, indicating these
 features may be strong predictors for the target. The result is
-consistent with the feature-target correlation
-analysis.
+consistent with the feature-target correlation analysis.
 
 <img src="../analysis/figures/fig_eda_02_striking_features_relationship.png" width="75%" style="display: block; margin: auto;" />
 
@@ -178,8 +192,7 @@ of strikes to opponents head attempted”. Further information are needed
 to evaluate whether the four features belong to the effective
 Striking/Grappling and cage/ring Control. Without further information,
 it may suggest these are some additional factors which the judges put
-higher weights
-on.
+higher weights on.
 
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 
@@ -231,7 +244,7 @@ Total significant strikes attempted on opponent
 
 <td style="text-align:center;">
 
-Number of strikes to opponents head attempted
+Number of strikes to opponents head landed
 
 </td>
 
@@ -403,8 +416,7 @@ small and have balanced bias-variance trade-off. This is not quite
 consistent with the number of features we got from the RFE with cross
 validation. However, it is not surprising that the cross validation can
 help to better optimize the hyperparameters while manually choosing the
-hyperparameters may subject to
-variations.
+hyperparameters may subject to variations.
 
 <div class="figure" style="text-align: center">
 
@@ -424,8 +436,7 @@ selected by RFE with cross validation and compared it with a logistic
 regression model using all the features. The accuracy on the train and
 validation data sets are reasonable for both models. The accuracy for
 the model with feature selection is slightly better than the model
-without feature
-selection.
+without feature selection.
 
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 
@@ -554,8 +565,7 @@ Our model is also limited to our dataset. We would also like to get more
 data from outside the Striking/Grappling variables with more data to
 describe aggressiveness and cage/ring control. Options for these further
 variables include average distance from the cage, number of times behind
-the opponent, number of times to cross the center
-line.
+the opponent, number of times to cross the center line.
 
 ## Supplementary Figures
 
@@ -566,8 +576,7 @@ line.
 <p class="caption">
 
 Supplementary Figure 1. Comparison of the distributions of the
-predictors between winning and losing for ‘attacks to’
-features.
+predictors between winning and losing for ‘attacks to’ features.
 
 </p>
 
@@ -588,14 +597,7 @@ predictors between winning and losing for ‘attacks from’ features.
 
 ## References
 
-<div id="refs" class="references">
-
-<div id="ref-GGally">
-
-al, Barret Schloerke et. 2018. *Janitor: Simple Tools for Examining and
-Cleaning Dirty Data*. <https://CRAN.R-project.org/package=GGally>.
-
-</div>
+<div id="refs" class="references hanging-indent">
 
 <div id="ref-sklearn_api">
 
@@ -614,10 +616,17 @@ Language*. <https://CRAN.R-project.org/package=docopt>.
 
 </div>
 
+<div id="ref-GGally">
+
+et.al, Barret Schloerke. 2018. *GGally: Extension to ’Ggplot2’*.
+<https://CRAN.R-project.org/package=GGally>.
+
+</div>
+
 <div id="ref-Hunter:2007">
 
 Hunter, J. D. 2007. “Matplotlib: A 2D Graphics Environment.” *Computing
-in Science & Engineering* 9 (3). IEEE COMPUTER SOC: 90–95.
+in Science & Engineering* 9 (3): 90–95.
 <https://doi.org/10.1109/MCSE.2007.55>.
 
 </div>
@@ -702,7 +711,7 @@ VanderPlas, Jacob, Brian Granger, Jeffrey Heer, Dominik Moritz, Kanit
 Wongsuphasawat, Arvind Satyanarayan, Eitan Lees, Ilia Timofeev, Ben
 Welsh, and Scott Sievert. 2018. “Altair: Interactive Statistical
 Visualizations for Python.” *Journal of Open Source Software*, December.
-The Open Journal. <https://doi.org/10.21105/joss.01057>.
+<https://doi.org/10.21105/joss.01057>.
 
 </div>
 
@@ -717,6 +726,13 @@ Scotts Valley, CA: CreateSpace.
 
 Wickham, Hadley. 2017. *Tidyverse: Easily Install and Load the
 ’Tidyverse’*. <https://CRAN.R-project.org/package=tidyverse>.
+
+</div>
+
+<div id="ref-ggridges">
+
+Wilke, Claus O. 2020. *Ggridges: Ridgeline Plots in ’Ggplot2’*.
+<https://CRAN.R-project.org/package=ggridges>.
 
 </div>
 
