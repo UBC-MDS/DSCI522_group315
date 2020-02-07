@@ -28,6 +28,11 @@ main <- function(url, out_file){
   
   # Download file
   download.file(url = url, destfile = out_file)
+  
+  # Tests that if the file is successfully downloaded
+  test_that("File downloading failed", {
+      expect_true(file.exists(out_file))
+  })
 }
 
   
