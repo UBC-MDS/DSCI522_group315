@@ -71,9 +71,18 @@ get_df <- function(X_train_path, y_train_path) {
 #' @return ggplot object
 make_cor_plot <- function(df) {
   df <- select_if(df, is.numeric)
-  cor_plot <- GGally::ggcorr(df, size = 3, hjust = 0.85, layout.exp = 2)
+  cor_plot <- GGally::ggcorr(df, size = 3, hjust = 0.85, layout.exp = 2,
+                             label = TRUE, label_size = 2, label_round = 1, 
+                             label_alpha = TRUE)
   cor_plot
 }
+
+test_cor_plot <- function(){
+  df <- read_csv("data/02_preprocessed/X_train.csv", col_types = cols())
+  df %>%
+    make_cor_plot
+}
+
 
 #' Make bar plot of outcomes
 #'
