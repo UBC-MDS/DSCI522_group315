@@ -1,7 +1,16 @@
 UFC Judge Scoring Analysis
 ================
 DSCI 522 group 315 </br>
-2020-01-23 (updated: 2020-02-01)
+2020-01-23 (updated: 2020-02-07)
+
+  - [Summary](#summary)
+  - [Introduction](#introduction)
+  - [Methods](#methods)
+      - [Data](#data)
+      - [Analysis](#analysis)
+  - [Results & Discussion](#results-discussion)
+  - [Supplementary Figures](#Suppl.)
+  - [References](#references)
 
 ## Summary
 
@@ -33,7 +42,7 @@ often controversy when the winning is needed to be decided by judges
 based on the competitors’ performance (instead of ending by submission
 or technical knockout). The official rules provide general guidance in
 judging the winner. The criteria sets priority from high to low ranking
-effective Striking/Grappling, effective Striking/Grappling and cage/ring
+effective Striking/Grappling, effective Aggressiveness and cage/ring
 Control(The ABC MMA Rules Committee 2017). As more and more controversy
 of the judging decisions raised, a systematic analysis of the UFC data
 would be very informative to evaluate the overall quality of UFC judging
@@ -116,12 +125,11 @@ To explore the relationships between different features and between
 features and target, we plotted the pair-wise correlation matrix (Figure
 1). The graph showed that features sig\_str\_att, head\_att,
 total\_str\_att are highly correlated with the target. It also indicated
-there are some interaction between the
-features.
+there are some interaction between the features.
 
 <div class="figure" style="text-align: center">
 
-<img src="../analysis/figures/fig_eda_01_corplot.png" alt="Figure 1. Correlation matrix for features and target." width="2100" />
+<img src="../analysis/figures/fig_eda_01_corplot.png" alt="Figure 1. Correlation matrix for features and target." width="75%" />
 
 <p class="caption">
 
@@ -132,31 +140,24 @@ Figure 1. Correlation matrix for features and target.
 </div>
 
 We categorized the features into four groups and in each group we
-explored the relationships between features and target (Figure 2). In
-general, the results showed that all the distributions of features
-between winning and losing were overlapped for some extend in different
-groups. However, each group has some features with significant
-difference in the means, which indicating these features may be strong
-predictors for the target. The result is consistent with the
-feature-target correlation
-analysis.
+explored the relationships between features and target (Figure 2,
+[Supplementary Figure 1 & 2](#Suppl.)). In general, the results showed
+that all the distributions of features between winning and losing were
+overlapped for some extend in different groups. However, each group has
+some features with significant difference in the means, indicating these
+features may be strong predictors for the target. The result is
+consistent with the feature-target correlation analysis.
 
 <img src="../analysis/figures/fig_eda_02_striking_features_relationship.png" width="75%" style="display: block; margin: auto;" />
 
-<img src="../analysis/figures/fig_eda_03_ground_features_relationship.png" width="75%" style="display: block; margin: auto;" />
-
-<img src="../analysis/figures/fig_eda_04_attacks_to_features_relationship.png" width="75%" style="display: block; margin: auto;" />
-
 <div class="figure" style="text-align: center">
 
-<img src="../analysis/figures/fig_eda_05_attacks_from_features_relationship.png" alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. From top to bottom: striking features, ground features, attacks-to features, attacks-from features.The feature explanations can be found in method section." width="75%" />
+<img src="../analysis/figures/fig_eda_03_ground_features_relationship.png" alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different categories." width="75%" />
 
 <p class="caption">
 
 Figure 2. Comparison of the distributions of the predictors between
-winning and losing in different groups. From top to bottom: striking
-features, ground features, attacks-to features, attacks-from
-features.The feature explanations can be found in method section.
+winning and losing in different categories.
 
 </p>
 
@@ -173,10 +174,9 @@ UFC official rules (The ABC MMA Rules Committee 2017).This indicates the
 rules were generally followed by the judges. Four features do not belong
 to the Striking/Grappling group, such as the top second feature
 “head\_att”. Further information are needed to evaluate whether the
-four features belong to the effective Striking/Grappling and cage/ring
-Control. Without further information, it may suggest these are some
-additional factors which the judges put higher weights
-on.
+four features belong to the effective aggressiveness and cage/ring
+control. Without further information, it may suggest these are some
+additional factors which the judges put higher weights on.
 
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 
@@ -218,7 +218,7 @@ sig\_str\_att
 
 <td style="text-align:center;">
 
-\-3.429
+\-3.43
 
 </td>
 
@@ -234,7 +234,7 @@ head\_att
 
 <td style="text-align:center;">
 
-\-3.224
+\-3.22
 
 </td>
 
@@ -250,7 +250,7 @@ total\_str\_att
 
 <td style="text-align:center;">
 
-\-2.897
+\-2.90
 
 </td>
 
@@ -266,7 +266,7 @@ td\_att
 
 <td style="text-align:center;">
 
-\-2.342
+\-2.34
 
 </td>
 
@@ -282,7 +282,7 @@ distance\_att
 
 <td style="text-align:center;">
 
-\-1.489
+\-1.49
 
 </td>
 
@@ -298,7 +298,7 @@ distance\_landed
 
 <td style="text-align:center;">
 
-1.346
+1.35
 
 </td>
 
@@ -314,7 +314,7 @@ pass
 
 <td style="text-align:center;">
 
-\-1.263
+\-1.26
 
 </td>
 
@@ -330,7 +330,7 @@ total\_str\_landed
 
 <td style="text-align:center;">
 
-\-1.125
+\-1.13
 
 </td>
 
@@ -346,7 +346,7 @@ td\_pct
 
 <td style="text-align:center;">
 
-1.113
+1.11
 
 </td>
 
@@ -362,7 +362,7 @@ td\_landed
 
 <td style="text-align:center;">
 
-0.716
+0.72
 
 </td>
 
@@ -378,7 +378,7 @@ ground\_att
 
 <td style="text-align:center;">
 
-\-0.673
+\-0.67
 
 </td>
 
@@ -400,12 +400,11 @@ small and have balanced bias-variance trade-off. This is not quite
 consistent with the number of features we got from the RFE with cross
 validation. However, it is not surprising that the cross validation can
 help to better optimize the hyperparameters while manually choosing the
-hyperparameters may subject to
-variations.
+hyperparameters may subject to variations.
 
 <div class="figure" style="text-align: center">
 
-<img src="../analysis/figures/error.png" alt="Figure 3. The train and validation error for including different numbers of features in the model ." width="10980" />
+<img src="../analysis/figures/error.png" alt="Figure 3. The train and validation error for including different numbers of features in the model ." width="75%" />
 
 <p class="caption">
 
@@ -421,8 +420,7 @@ selected by RFE with cross validation and compared it with a logistic
 regression model using all the features. The accuracy on the train and
 validation data sets are reasonable for both models. The accuracy for
 the model with feature selection is slightly better than the model
-without feature
-selection.
+without feature selection.
 
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 
@@ -465,7 +463,7 @@ Training Accuracy - No Feature Selection
 
 <td style="text-align:center;">
 
-0.843
+0.84
 
 </td>
 
@@ -481,7 +479,7 @@ Testing Accuracy - No Feature Selection
 
 <td style="text-align:center;">
 
-0.821
+0.82
 
 </td>
 
@@ -497,7 +495,7 @@ Training Accuracy - Selected Features
 
 <td style="text-align:center;">
 
-0.846
+0.85
 
 </td>
 
@@ -513,7 +511,7 @@ Testing Accuracy - Selected Features
 
 <td style="text-align:center;">
 
-0.825
+0.83
 
 </td>
 
@@ -563,13 +561,41 @@ explored.
 
 Our model is also limited to our dataset. We would also like to get more
 data from outside the Striking/Grappling variables with more data to
-describe Cage/Ring control. Options for these further variables include
-average distance from the cage, number of times behind the opponent,
-number of times to cross the center line.
+describe aggressiveness and cage/ring control. Options for these further
+variables include average distance from the cage, number of times behind
+the opponent, number of times to cross the center line.
+
+## Supplementary Figures
+
+<div class="figure" style="text-align: center">
+
+<img src="../analysis/figures/fig_eda_04_attacks_to_features_relationship.png" alt="Supplementary Figure 1. Comparison of the distributions of the predictors between winning and losing for 'attacks to' features." width="75%" />
+
+<p class="caption">
+
+Supplementary Figure 1. Comparison of the distributions of the
+predictors between winning and losing for ‘attacks to’ features.
+
+</p>
+
+</div>
+
+<div class="figure" style="text-align: center">
+
+<img src="../analysis/figures/fig_eda_05_attacks_from_features_relationship.png" alt="Supplementary Figure 2. Comparison of the distributions of the predictors between winning and losing for 'attacks from' features." width="75%" />
+
+<p class="caption">
+
+Supplementary Figure 2. Comparison of the distributions of the
+predictors between winning and losing for ‘attacks from’ features.
+
+</p>
+
+</div>
 
 ## References
 
-<div id="refs" class="references">
+<div id="refs" class="references hanging-indent">
 
 <div id="ref-GGally">
 
@@ -598,7 +624,7 @@ Language*. <https://CRAN.R-project.org/package=docopt>.
 <div id="ref-Hunter:2007">
 
 Hunter, J. D. 2007. “Matplotlib: A 2D Graphics Environment.” *Computing
-in Science & Engineering* 9 (3). IEEE COMPUTER SOC: 90–95.
+in Science & Engineering* 9 (3): 90–95.
 <https://doi.org/10.1109/MCSE.2007.55>.
 
 </div>
@@ -683,7 +709,7 @@ VanderPlas, Jacob, Brian Granger, Jeffrey Heer, Dominik Moritz, Kanit
 Wongsuphasawat, Arvind Satyanarayan, Eitan Lees, Ilia Timofeev, Ben
 Welsh, and Scott Sievert. 2018. “Altair: Interactive Statistical
 Visualizations for Python.” *Journal of Open Source Software*, December.
-The Open Journal. <https://doi.org/10.21105/joss.01057>.
+<https://doi.org/10.21105/joss.01057>.
 
 </div>
 
