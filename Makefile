@@ -1,4 +1,5 @@
-# ufc juding analysis data pipe
+# Run the entire data analysis pipeline from downloading raw data, 
+# preprocessing data, performing EDA, machine learning, and reporting.
 # author: Sam Edwardes
 # date: 2020-01-30
 

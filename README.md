@@ -60,12 +60,16 @@ Command Prompt, replace /$(pwd) with PATH\_ON\_YOUR\_COMPUTER.*
 2.  Download/clone this repository
 3.  Use the command line to navigate to the root of this
     downloaded/cloned repo
-4.  Type the
-    following:
+4.  Type the following:
 
-<!-- end list -->
+*first build the image*
 
-    docker run -it --rm -v $(pwd):/root/ufc dsci-522-ufc cd root/ufc make all
+    docker build --tag dsci-522-ufc . 
+
+*then run the
+    container*
+
+    docker run --rm -v $(pwd):/root/ufc dsci-522-ufc cd root/ufc make all
 
 **2. After installing all dependencies (does not depend on Docker)**
 
