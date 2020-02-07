@@ -142,7 +142,7 @@ for PC users.
 
 ## Makefile Dependacy Graph
 
-<img src="https://github.com/UBC-MDS/DSCI522_group315/blob/master/Makefile.png?raw=true" alt="Makefile Graph" height="300" width="2000">
+![](https://github.com/UBC-MDS/DSCI522_group315/blob/master/Makefile.png?raw=true)
 
 View the
 [Makefile.png](https://github.com/UBC-MDS/DSCI522_group315/blob/master/Makefile.png)

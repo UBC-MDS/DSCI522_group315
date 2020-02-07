@@ -125,7 +125,7 @@ You need to include the ChromeDriver location in your system PATH. Please follow
   - ggridges == 0.5.2
 
 ## Makefile Dependacy Graph
-<img src="https://github.com/UBC-MDS/DSCI522_group315/blob/master/Makefile.png?raw=true" alt="Makefile Graph" height="200" width="2000">
+![](https://github.com/UBC-MDS/DSCI522_group315/blob/master/Makefile.png?raw=true)
 
 View the [Makefile.png](https://github.com/UBC-MDS/DSCI522_group315/blob/master/Makefile.png) larger version of the Makefile Dependancy Graph.
 
