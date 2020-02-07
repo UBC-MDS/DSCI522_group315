@@ -1,7 +1,7 @@
 UFC Judge Scoring Analysis
 ================
 DSCI 522 group 315 </br>
-2020-01-23 (updated: 2020-02-06)
+2020-01-23 (updated: 2020-02-07)
 
 ## Summary
 
@@ -33,7 +33,7 @@ often controversy when the winning is needed to be decided by judges
 based on the competitors’ performance (instead of ending by submission
 or technical knockout). The official rules provide general guidance in
 judging the winner. The criteria sets priority from high to low ranking
-effective Striking/Grappling, effective Striking/Grappling and cage/ring
+effective Striking/Grappling, effective Aggressiveness and cage/ring
 Control(The ABC MMA Rules Committee 2017). As more and more controversy
 of the judging decisions raised, a systematic analysis of the UFC data
 would be very informative to evaluate the overall quality of UFC judging
@@ -78,7 +78,7 @@ analysis:
 | body\_landed       | Number of strikes to opponents body landed              | Strikes to   |
 | body\_att          | Number of strikes to opponents body attempted           | Strikes to   |
 | head\_landed       | Number of strikes to opponents head landed              | Strikes to   |
-| head\_att          | Number of strikes to opponents head landed              | Strikes to   |
+| head\_att          | Number of strikes to opponents head attempted           | Strikes to   |
 | rev                | Number of grappling reversals achieved                  | Grappling    |
 | pass               | Number of guard passes achieved                         | Grappling    |
 | sub\_att           | Number of submission attempts on opponent               | Grappling    |
@@ -121,7 +121,17 @@ total\_str\_att are highly correlated with the target. It also indicated
 there are some interaction between the
 features.
 
-<img src="../analysis/figures/fig_eda_01_corplot.png" title="Figure 1. Correlation matrix for features and target." alt="Figure 1. Correlation matrix for features and target." style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+
+<img src="../analysis/figures/fig_eda_01_corplot.png" alt="Figure 1. Correlation matrix for features and target." width="75%" />
+
+<p class="caption">
+
+Figure 1. Correlation matrix for features and target.
+
+</p>
+
+</div>
 
 *Note the correct way to read this plot is to: (1) Choose first feature
 of interest. (2) Find the column of squares that the features sits on
@@ -130,22 +140,29 @@ square where the column from the first feature and the row of the second
 feature intersect. This is the correlation between the two features*
 
 We categorized the features into four groups and in each group we
-explored the relationships between features and target (Figure 2). In
-general, the results showed that all the distributions of features
-between winning and losing were overlapped for some extend in different
-groups. However, each group has some features with significant
-difference in the means, which indicating these features may be strong
-predictors for the target. The result is consistent with the
-feature-target correlation
+explored the relationships between features and target (Figure 2,
+[Supplementary Figure 1 & 2](#Suppl.)). In general, the results showed
+that all the distributions of features between winning and losing were
+overlapped for some extend in different groups. However, each group has
+some features with significant difference in the means, indicating these
+features may be strong predictors for the target. The result is
+consistent with the feature-target correlation
 analysis.
 
 <img src="../analysis/figures/fig_eda_02_striking_features_relationship.png" width="75%" style="display: block; margin: auto;" />
 
-<img src="../analysis/figures/fig_eda_03_ground_features_relationship.png" width="75%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
 
-<img src="../analysis/figures/fig_eda_04_attacks_to_features_relationship.png" width="75%" style="display: block; margin: auto;" />
+<img src="../analysis/figures/fig_eda_03_ground_features_relationship.png" alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different categories." width="75%" />
 
-<img src="../analysis/figures/fig_eda_05_attacks_from_features_relationship.png" title="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. From top to bottom: striking features, ground features, attacks-to features, attacks-from features.The feature explanations can be found in method section." alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. From top to bottom: striking features, ground features, attacks-to features, attacks-from features.The feature explanations can be found in method section." width="75%" style="display: block; margin: auto;" />
+<p class="caption">
+
+Figure 2. Comparison of the distributions of the predictors between
+winning and losing in different categories.
+
+</p>
+
+</div>
 
 We chose logistic regression model to assign weights to all the features
 and used recursive feature elimination (RFE) with cross validation
@@ -156,11 +173,12 @@ and another 6 features are indicators of Striking/Grappling performance,
 which should be the first priority in judging criteria according to the
 UFC official rules (The ABC MMA Rules Committee 2017).This indicates the
 rules were generally followed by the judges. Four features do not belong
-to the Striking/Grappling group, such as the top second feature
-“head\_att”. Further information are needed to evaluate whether the
-four features belong to the effective Striking/Grappling and cage/ring
-Control. Without further information, it may suggest these are some
-additional factors which the judges put higher weights
+to the Striking/Grappling group, such as the top second feature “Number
+of strikes to opponents head attempted”. Further information are needed
+to evaluate whether the four features belong to the effective
+Striking/Grappling and cage/ring Control. Without further information,
+it may suggest these are some additional factors which the judges put
+higher weights
 on.
 
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -197,29 +215,13 @@ Weights
 
 <td style="text-align:center;">
 
-sig\_str\_att
+Total significant strikes attempted on opponent
 
 </td>
 
 <td style="text-align:center;">
 
-\-3.429
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:center;">
-
-head\_att
-
-</td>
-
-<td style="text-align:center;">
-
-\-3.224
+\-3.43
 
 </td>
 
@@ -229,29 +231,13 @@ head\_att
 
 <td style="text-align:center;">
 
-total\_str\_att
+Number of strikes to opponents head attempted
 
 </td>
 
 <td style="text-align:center;">
 
-\-2.897
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:center;">
-
-td\_att
-
-</td>
-
-<td style="text-align:center;">
-
-\-2.342
+\-3.22
 
 </td>
 
@@ -261,29 +247,13 @@ td\_att
 
 <td style="text-align:center;">
 
-distance\_att
+Total strikes attempted on opponent
 
 </td>
 
 <td style="text-align:center;">
 
-\-1.489
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:center;">
-
-distance\_landed
-
-</td>
-
-<td style="text-align:center;">
-
-1.346
+\-2.90
 
 </td>
 
@@ -293,29 +263,13 @@ distance\_landed
 
 <td style="text-align:center;">
 
-pass
+Number of takedowns attempted on opponent
 
 </td>
 
 <td style="text-align:center;">
 
-\-1.263
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:center;">
-
-total\_str\_landed
-
-</td>
-
-<td style="text-align:center;">
-
-\-1.125
+\-2.34
 
 </td>
 
@@ -325,29 +279,13 @@ total\_str\_landed
 
 <td style="text-align:center;">
 
-td\_pct
+Number of strikes attempted from a distance
 
 </td>
 
 <td style="text-align:center;">
 
-1.113
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:center;">
-
-td\_landed
-
-</td>
-
-<td style="text-align:center;">
-
-0.716
+\-1.49
 
 </td>
 
@@ -357,13 +295,93 @@ td\_landed
 
 <td style="text-align:center;">
 
-ground\_att
+Number of strikes landed from a distance
 
 </td>
 
 <td style="text-align:center;">
 
-\-0.673
+1.35
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:center;">
+
+Number of guard passes achieved
+
+</td>
+
+<td style="text-align:center;">
+
+\-1.26
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:center;">
+
+Total strikes landed on opponent
+
+</td>
+
+<td style="text-align:center;">
+
+\-1.13
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:center;">
+
+Percent of takedowns successfully completed
+
+</td>
+
+<td style="text-align:center;">
+
+1.11
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:center;">
+
+Number of takedowns successfully completed
+
+</td>
+
+<td style="text-align:center;">
+
+0.72
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:center;">
+
+Number of strikes attempted while on the ground
+
+</td>
+
+<td style="text-align:center;">
+
+\-0.67
 
 </td>
 
@@ -388,7 +406,18 @@ help to better optimize the hyperparameters while manually choosing the
 hyperparameters may subject to
 variations.
 
-<img src="../analysis/figures/error.png" title="Figure 3. The train and validation error for including different numbers of features in the model ." alt="Figure 3. The train and validation error for including different numbers of features in the model ." style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+
+<img src="../analysis/figures/error.png" alt="Figure 3. The train and validation error for including different numbers of features in the model ." width="75%" />
+
+<p class="caption">
+
+Figure 3. The train and validation error for including different numbers
+of features in the model .
+
+</p>
+
+</div>
 
 We built our final logistic regression model using the 11 features
 selected by RFE with cross validation and compared it with a logistic
@@ -413,13 +442,19 @@ sets.
 
 <th style="text-align:center;">
 
-Model
+Features
 
 </th>
 
 <th style="text-align:center;">
 
-Score
+Training Accuracy
+
+</th>
+
+<th style="text-align:center;">
+
+Validation Accuracy
 
 </th>
 
@@ -433,29 +468,19 @@ Score
 
 <td style="text-align:center;">
 
-Training Accuracy - No Feature Selection
+All Features
 
 </td>
 
 <td style="text-align:center;">
 
-0.843
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:center;">
-
-Testing Accuracy - No Feature Selection
+0.8433
 
 </td>
 
 <td style="text-align:center;">
 
-0.821
+0.8206
 
 </td>
 
@@ -465,29 +490,19 @@ Testing Accuracy - No Feature Selection
 
 <td style="text-align:center;">
 
-Training Accuracy - Selected Features
+Selected Features
 
 </td>
 
 <td style="text-align:center;">
 
-0.846
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:center;">
-
-Testing Accuracy - Selected Features
+0.8461
 
 </td>
 
 <td style="text-align:center;">
 
-0.825
+0.8251
 
 </td>
 
@@ -502,7 +517,18 @@ predicted 368 out of 446 validation cases and incorrectly predicted 78
 cases with 40 being false positive and 38 false negative cases (Figure
 4).
 
-<img src="../analysis/figures/confusion_matrix.png" title="Figure 4. Confusion matrix of model performance on test data on validation data set." alt="Figure 4. Confusion matrix of model performance on test data on validation data set." width="60%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+
+<img src="../analysis/figures/confusion_matrix.png" alt="Figure 4. Confusion matrix of model performance on test data on validation data set." width="80%" />
+
+<p class="caption">
+
+Figure 4. Confusion matrix of model performance on test data on
+validation data set.
+
+</p>
+
+</div>
 
 Overall, we identified the key predictors for UFC winning. Most of these
 strong predictors are indicators of Striking/Grappling performance,
@@ -526,9 +552,39 @@ explored.
 
 Our model is also limited to our dataset. We would also like to get more
 data from outside the Striking/Grappling variables with more data to
-describe Cage/Ring control. Options for these further variables include
-average distance from the cage, number of times behind the opponent,
-number of times to cross the center line.
+describe aggressiveness and cage/ring control. Options for these further
+variables include average distance from the cage, number of times behind
+the opponent, number of times to cross the center
+line.
+
+## Supplementary Figures
+
+<div class="figure" style="text-align: center">
+
+<img src="../analysis/figures/fig_eda_04_attacks_to_features_relationship.png" alt="Supplementary Figure 1. Comparison of the distributions of the predictors between winning and losing for 'attacks to' features." width="75%" />
+
+<p class="caption">
+
+Supplementary Figure 1. Comparison of the distributions of the
+predictors between winning and losing for ‘attacks to’
+features.
+
+</p>
+
+</div>
+
+<div class="figure" style="text-align: center">
+
+<img src="../analysis/figures/fig_eda_05_attacks_from_features_relationship.png" alt="Supplementary Figure 2. Comparison of the distributions of the predictors between winning and losing for 'attacks from' features." width="75%" />
+
+<p class="caption">
+
+Supplementary Figure 2. Comparison of the distributions of the
+predictors between winning and losing for ‘attacks from’ features.
+
+</p>
+
+</div>
 
 ## References
 

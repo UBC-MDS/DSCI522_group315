@@ -29,6 +29,7 @@ import altair as alt
 from sklearn.metrics import classification_report
 from sklearn.metrics import plot_confusion_matrix
 import matplotlib.pyplot as plt
+plt.rcParams.update({'font.size': 28})
 
 opt = docopt(__doc__)
 
@@ -105,8 +106,44 @@ def main(input_path, out_path, out_path_csv):
   lr_normal.fit(X_train, y_train)
   lr_select.fit(X_train_sel, y_train)
   
+  # Create lookup for proper titles of features
+  label_encode = {'original_labels': ["ground_land", "ground_att", "clinch_landed", "clinch_att", "distance_landed", "distance_att", "leg_landed", 
+  "leg_att", 'body_landed', 'body_att', 'head_landed', 'head_att', 'rev', 'pass', 'sub_att', 'td_pct', 'td_landed', 
+  'td_att', 'total_str_landed', 'total_str_att', 'sig_str_att', 'sig_str_pct', 'sig_str_landed'],
+   'description':['Number of strikes landed while on the ground',
+  'Number of strikes attempted while on the ground',
+  'Number of strikes landed while in the clinch',
+  'Number of strikes attempted while in the clinch',
+  'Number of strikes landed from a distance',
+  'Number of strikes attempted from a distance',
+  'Number of strikes to opponents leg landed',
+  'Number of strikes to opponents leg attempted',
+  'Number of strikes to opponents body landed',
+  'Number of strikes to opponents body attempted',
+  'Number of strikes to opponents head landed',
+  'Number of strikes to opponents head attempted',
+  'Number of grappling reversals achieved',
+  'Number of guard passes achieved',
+  'Number of submission attempts on opponent',
+  'Percent of takedowns successfully completed',
+  'Number of takedowns successfully completed',
+  'Number of takedowns attempted on opponent',
+  'Total strikes landed on opponent',
+  'Total strikes attempted on opponent',
+  'Total significant strikes attempted on opponent',
+  'Percent of significant strikes landed on opponent',
+  'Total significant strikes landed on opponent']
+  }
+  
+  label_df = pd.DataFrame(data=label_encode)
+  
+  # Make current selected features into a dataframe and merge with proper titles
+  feature_df = pd.DataFrame({'features': X_train_sel.columns.values.tolist()})
+  
+  merged_label_df = feature_df.merge(label_df, left_on='features', right_on='original_labels')
+
   # Create a dataframe of the selected features and weights
-  feature_names = X_train_sel.columns
+  feature_names = merged_label_df.iloc[:,2]
   weights = np.round_(lr_select.coef_.flatten(), decimals = 4)
   inds = np.argsort(weights)
   weight_df = pd.DataFrame({'Features': feature_names, 'Weights': weights})
@@ -117,14 +154,17 @@ def main(input_path, out_path, out_path_csv):
   test_score = round(lr_normal.score(X_test, y_test), 4)
   train_sel_score = round(lr_select.score(X_train_sel, y_train), 4)
   test_sel_score = round(lr_select.score(X_test_sel, y_test), 4)
-  
-  models = ["Training Accuracy - No Feature Selection", "Testing Accuracy - No Feature Selection", "Training Accuracy - Selected Features", "Testing Accuracy - Selected Features"]
-  scores = [train_score, test_score, train_sel_score, test_sel_score]
-  results = pd.DataFrame({'Model' : models, 'Score' : scores})
+
+  train_scores = [train_score, train_sel_score]
+  feature_sel = ["All Features", "Selected Features"]
+  test_scores = [test_score, test_sel_score]
+  results = pd.DataFrame({'Features': feature_sel, 
+                          'Training Accuracy' : train_scores, 
+                          'Validation Accuracy' : test_scores})
   
   # Test the the proper size csv is printing out
-  assert len(results) == 4, "Results is not the right length"
-  assert results.shape[1] == 2, "Results is not the right width"
+  assert len(results) == 2, "Results is not the right length"
+  assert results.shape[1] == 3, "Results is not the right width"
   
   # Test weight_df csv is correct length
   assert len(weight_df) == rfe_cv.n_features_, "Weights is not the right length"
@@ -134,7 +174,7 @@ def main(input_path, out_path, out_path_csv):
   # PLOTTING THE NUMBER OF FEATURES
   # Create a plot comparing the training error to test error for a given number of features.
   #////////////////////////////////////
-  max_dict = {'n_features_to_select':[], 'Training Error':[],'Test Error':[]}
+  max_dict = {'n_features_to_select':[], 'Training Error':[],'Validation Error':[]}
   
   for i in range(1, len(X_train.columns)):
     
@@ -145,7 +185,7 @@ def main(input_path, out_path, out_path_csv):
       valid_error = 1-rfe.score(X_test, y_test)
       max_dict['n_features_to_select'].append(i)    
       max_dict['Training Error'].append(train_error) 
-      max_dict['Test Error'].append(valid_error)
+      max_dict['Validation Error'].append(valid_error)
 
   # plot using altair   
   n_features_to_select_df = pd.DataFrame(max_dict)
@@ -154,11 +194,31 @@ def main(input_path, out_path, out_path_csv):
   plot = alt.Chart(n_features_to_select_df).mark_line().encode(
       alt.X('n_features_to_select:Q', title='Number of Features'),
       alt.Y('error:Q', title='Error Rate'),
-      alt.Color('variable:N', title="Type of Error")
+      alt.Color('variable:N', legend=None)
   ).properties(
       title='Error vs Number of Features')
   
+  # Add labels to plot
+  text = plot.mark_text(dy=-10, dx=-40).encode(
+      x=alt.X('max(n_features_to_select):Q'),
+      y=alt.Y('error:Q', aggregate={'argmax': 'n_features_to_select'}),
+      text=alt.Text('variable:N')
+  )
+    
+  plot = text + plot
+  
   # Confusion Matrix on the X test values
+  
+  size=22
+  params = {'legend.fontsize': 'large',
+            'figure.figsize': (13,12),
+            'axes.labelsize': size,
+            'axes.titlesize': size,
+            'xtick.labelsize': size,
+            'ytick.labelsize': size,
+            'axes.titlepad': 25}
+  plt.rcParams.update(params)
+
   disp = plot_confusion_matrix(lr_select, X_test_sel, y_test,
                              display_labels=['Blue wins', 'Red Wins', 'Blue Wins', 'Red Wins'],
                              cmap=plt.cm.Blues, 

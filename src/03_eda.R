@@ -16,7 +16,7 @@ suppressPackageStartupMessages(library(docopt))
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(GGally))
 suppressPackageStartupMessages(library(testthat))
-
+suppressPackageStartupMessages(library(ggridges))
 arguments <- docopt(doc)
 
 #////////////////////////////////////
@@ -108,7 +108,7 @@ make_class_count_bar_plot <- function(df) {
 #' @param ... Additional column names
 #'
 #' @return ggplot object
-make_box_jitter_plot <- function(df, response, ...) {
+make_box_jitter_plot <- function(df, response, category,...) {
   variable_names <- c(
     'sig_str_att' = "Sig. Strikes Attempted",
     'sig_str_landed'= "Sig. Strikes Landed",
@@ -155,24 +155,17 @@ make_box_jitter_plot <- function(df, response, ...) {
   df$names2 <- variable_names[idx]
   
   df %>%
-    ggplot(aes(x = {{ response }}, y = b_value, colour = {{ response }})) +
-    geom_jitter(alpha = 1 / 4, width = 1 / 4) +
-    geom_boxplot(
-      mapping = aes(group = {{ response }}, fill = {{ response }}),
-      alpha = 8 / 10,
-      width = 1 / 3,
-      outlier.shape = NA,
-      notch = TRUE
-    ) +
-    scale_y_continuous(breaks = c(0, 0.5, 1)) +
+    ggplot(aes(x = b_value, y = {{ response }}, colour = {{ response }})) +
+    geom_density_ridges(aes(fill = {{ response }}), alpha = 0.7) +
+    scale_x_continuous(breaks = c(0, 0.5, 1)) +
     facet_wrap(~names2, nrow=1, labeller = labeller(name = variable_names,
                names2 = label_wrap_gen(10))) +
     labs(
-      x = element_blank(),
-      y = "Proportion of feature for Blue"
+      x = paste("Ratio of scores for", category, "(blue/red)"),
+      y = element_blank()
     ) +
-    theme(legend.position = "none") +
-    coord_flip()
+    theme(legend.position = "none", axis.title.x = element_text(size = 10))
+ 
 }
 
 
@@ -249,20 +242,20 @@ main <- function(X_train_path, y_train_path, out_dir){
   print("Created correlation plot...")
   
   ggsave(paste0(out_dir, "fig_eda_02_striking_features_relationship.png"),
-         height = 4, width = 6, units = "in",
-         make_box_jitter_plot(df = df, response = blue_win, striking_features))
+         height = 2, width = 6, units = "in",
+         make_box_jitter_plot(df = df, response = blue_win, category ="striking features", striking_features))
   
   ggsave(paste0(out_dir, "fig_eda_03_ground_features_relationship.png"),
-         height = 4, width = 6, units = "in",
-         make_box_jitter_plot(df = df, response = blue_win, ground_features))
+         height = 2, width = 6, units = "in",
+         make_box_jitter_plot(df = df, response = blue_win, category ="ground features",ground_features))
   
   ggsave(paste0(out_dir, "fig_eda_04_attacks_to_features_relationship.png"),
-         height = 4, width = 6, units = "in",
-         make_box_jitter_plot(df = df, response = blue_win, attacks_to_features))
+         height = 2, width = 6, units = "in",
+         make_box_jitter_plot(df = df, response = blue_win, category ="'attacks to' features",attacks_to_features))
   
   ggsave(paste0(out_dir, "fig_eda_05_attacks_from_features_relationship.png"),
-         height = 4, width = 6, units = "in",
-         make_box_jitter_plot(df = df, response = blue_win, attacks_from_features))
+         height = 2, width = 6, units = "in",
+         make_box_jitter_plot(df = df, response = blue_win, category ="'attcks from' features",attacks_from_features))
   
   #////////////////////////////////////
   # Write tables

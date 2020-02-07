@@ -1,5 +1,3 @@
-Model,Score
-Training Accuracy - No Feature Selection,0.8433
-Testing Accuracy - No Feature Selection,0.8206
-Training Accuracy - Selected Features,0.8461
-Testing Accuracy - Selected Features,0.8251
+Features,Training Accuracy,Validation Accuracy
+All Features,0.8433,0.8206
+Selected Features,0.8461,0.8251
