@@ -121,7 +121,7 @@ def main(input_path, out_path, out_path_csv):
   'Number of strikes to opponents body landed',
   'Number of strikes to opponents body attempted',
   'Number of strikes to opponents head landed',
-  'Number of strikes to opponents head landed',
+  'Number of strikes to opponents head attempted',
   'Number of grappling reversals achieved',
   'Number of guard passes achieved',
   'Number of submission attempts on opponent',
@@ -160,7 +160,7 @@ def main(input_path, out_path, out_path_csv):
   test_scores = [test_score, test_sel_score]
   results = pd.DataFrame({'Features': feature_sel, 
                           'Training Accuracy' : train_scores, 
-                          'Testing Accuracy' : test_scores})
+                          'Validation Accuracy' : test_scores})
   
   # Test the the proper size csv is printing out
   assert len(results) == 2, "Results is not the right length"

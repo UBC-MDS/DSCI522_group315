@@ -18,7 +18,7 @@ features by RFE, 7 features are related to Striking/Grappling
 performance which should be considered as the top factor in judgment
 based on the UFC official rules. Our final logistic regression model
 using these selected features performed well on validation data set with
-accuracy score of 0.84. It correctly predicted 368 out of 446 test cases
+accuracy score of 0.83. It correctly predicted 368 out of 446 test cases
 and incorrectly predicted 78 cases with 40 being false positive and 38
 false negative. Our results showed that the judges generally comply to
 the UFC rules and put weights on some additional factors.
@@ -78,7 +78,7 @@ analysis:
 | body\_landed       | Number of strikes to opponents body landed              | Strikes to   |
 | body\_att          | Number of strikes to opponents body attempted           | Strikes to   |
 | head\_landed       | Number of strikes to opponents head landed              | Strikes to   |
-| head\_att          | Number of strikes to opponents head landed              | Strikes to   |
+| head\_att          | Number of strikes to opponents head attempted           | Strikes to   |
 | rev                | Number of grappling reversals achieved                  | Grappling    |
 | pass               | Number of guard passes achieved                         | Grappling    |
 | sub\_att           | Number of submission attempts on opponent               | Grappling    |
@@ -180,8 +180,8 @@ which should be the first priority in judging criteria according to the
 UFC official rules (The ABC MMA Rules Committee 2017).This indicates the
 rules were generally followed by the judges. Four features do not belong
 to the Striking/Grappling group, such as the top second feature “Number
-of strikes to opponents head landed”. Further information are needed to
-evaluate whether the four features belong to the effective
+of strikes to opponents head attempted”. Further information are needed
+to evaluate whether the four features belong to the effective
 Striking/Grappling and cage/ring Control. Without further information,
 it may suggest these are some additional factors which the judges put
 higher weights
@@ -237,7 +237,7 @@ Total significant strikes attempted on opponent
 
 <td style="text-align:center;">
 
-Number of strikes to opponents head landed
+Number of strikes to opponents head attempted
 
 </td>
 
@@ -460,7 +460,7 @@ Training Accuracy
 
 <th style="text-align:center;">
 
-Testing Accuracy
+Validation Accuracy
 
 </th>
 
