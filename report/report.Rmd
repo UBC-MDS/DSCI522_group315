@@ -30,7 +30,7 @@ In this study, we aim to assess whether the judging in the Ultimate Fighting Cha
 
 ## Introduction
 
-The Ultimate Fighting Championship (UFC) is the world's premier mixed martial arts (MMA) organization. The events are to identify the world's best martial artists. Since it is a relatively new sport, the rules are not well established and need improvement. The results of the fights are often controversy when the winning is needed to be decided by judges based on the competitors' performance (instead of ending by submission or technical knockout). The official rules provide general guidance in judging the winner. The criteria sets priority from high to low ranking effective Striking/Grappling, effective Striking/Grappling and cage/ring Control[@MMA-judging-criteria]. As more and more controversy of the judging decisions raised, a systematic analysis of the UFC data would be very informative to evaluate the overall quality of UFC judging system.
+The Ultimate Fighting Championship (UFC) is the world's premier mixed martial arts (MMA) organization. The events are to identify the world's best martial artists. Since it is a relatively new sport, the rules are not well established and need improvement. The results of the fights are often controversy when the winning is needed to be decided by judges based on the competitors' performance (instead of ending by submission or technical knockout). The official rules provide general guidance in judging the winner. The criteria sets priority from high to low ranking effective Striking/Grappling, effective Aggressiveness and cage/ring Control[@MMA-judging-criteria]. As more and more controversy of the judging decisions raised, a systematic analysis of the UFC data would be very informative to evaluate the overall quality of UFC judging system.
 
 In this project, we are trying to identify the key predictors for winning in previous UFC events and examine whether these key predictors are in line with the UFC official guidance. This analysis is very significant because it may serve as a quality control approach for the UFC judging system and help to improve the rules and training strategies for the judges in the future.
  
@@ -79,29 +79,23 @@ The logistic regression algorithm was used to build a regression model to assign
 
 To explore the relationships between different features and between features and target, we plotted the pair-wise correlation matrix (Figure 1). The graph showed that features sig_str_att, head_att, total_str_att are highly correlated with the target. It also indicated there are some interaction between the features.
 
-```{r pair-wise, echo=FALSE, fig.cap="Figure 1. Correlation matrix for features and target.", fig.align="center"}
+```{r pair-wise, echo=FALSE,fig.align='center', out.width='75%', fig.cap="Figure 1. Correlation matrix for features and target.", fig.align="center"}
 knitr::include_graphics("../analysis/figures/fig_eda_01_corplot.png")
 ```
 
 *Note the correct way to read this plot is to: (1) Choose first feature of interest. (2) Find the column of squares that the features sits on top of. (3) Choose a second features of interest. (4) Find the the square where the column from the first feature and the row of the second feature intersect. This is the correlation between the two features*
 
-We categorized the features into four groups and in each group we explored the relationships between features and target (Figure 2). In general, the results showed that all the distributions of features between winning and losing were overlapped for some extend in different groups. However, each group has some features with significant difference in the means, which indicating these features may be strong predictors for the target. The result is consistent with the feature-target correlation analysis. 
+We categorized the features into four groups and in each group we explored the relationships between features and target (Figure 2, [Supplementary Figure 1 & 2](#Suppl.)). In general, the results showed that all the distributions of features between winning and losing were overlapped for some extend in different groups. However, each group has some features with significant difference in the means, indicating these features may be strong predictors for the target. The result is consistent with the feature-target correlation analysis. 
 
 ```{r jitter1, echo=FALSE, fig.align='center', fig.show='hold', out.width='75%'}
 knitr::include_graphics(c("../analysis/figures/fig_eda_02_striking_features_relationship.png"))
 ```
 
-```{r jitter2, echo=FALSE, fig.align='center', fig.show='hold', out.width='75%'}
+```{r jitter2, echo=FALSE, fig.align='center', fig.show='hold', out.width='75%',fig.cap="Figure 2. Comparison of the distributions of the predictors between winning and losing in different categories."}
 knitr::include_graphics(c("../analysis/figures/fig_eda_03_ground_features_relationship.png"))
 ```
 
-```{r jitter3, echo=FALSE, fig.align='center', fig.show='hold', out.width='75%'}
-knitr::include_graphics(c("../analysis/figures/fig_eda_04_attacks_to_features_relationship.png"))
-```
 
-```{r jitter4, echo=FALSE, fig.align='center', fig.show='hold', out.width='75%', fig.cap="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. From top to bottom: striking features, ground features, attacks-to features, attacks-from features.The feature explanations can be found in method section."}
-knitr::include_graphics(c("../analysis/figures/fig_eda_05_attacks_from_features_relationship.png"))
-```
 
 We chose logistic regression model to assign weights to all the features and used recursive feature elimination (RFE) with cross validation approach to identify the most relevant features and ranked them according to the weights (Table 1). Features with higher weights are stronger predictors for winning. Among the 11 features, the top feature and another 6 features are indicators of Striking/Grappling performance, which should be the first priority in judging criteria according to the UFC official rules [@MMA-judging-criteria].This indicates the rules were generally followed by the judges. Four features do not belong to the Striking/Grappling group, such as the top second feature "Number of strikes to opponents head attempted". Further information are needed to evaluate whether the four features belong to the effective Striking/Grappling and cage/ring Control. Without further information, it may suggest these are some additional factors which the judges put higher weights on.
 
@@ -109,7 +103,7 @@ We chose logistic regression model to assign weights to all the features and use
 ```{r RFE weights, echo=FALSE, message=FALSE, fig.align="centre"}
 table1 <- read_csv("../analysis/weights.csv")
 table1_1 <- table1 %>% 
-  mutate(Weights = round(Weights, 3))
+  mutate(Weights = round(Weights, 2))
 kable(table1_1, align = "cc", caption = "Table 1. RFE selected features and their weights.") %>%
   kable_styling("striped", position="center", full_width = FALSE) 
 ```
@@ -118,7 +112,7 @@ kable(table1_1, align = "cc", caption = "Table 1. RFE selected features and thei
 To visualize how feature selection affects the model performance, we calculate the train and test errors using recursive feature elimination (RFE) with the "n_features_to_select" hyperprameter ranging from 1 to 22 (Figure 3). It is observed that when the "n_features_to_select" hyperprameter is 5 to 8,  the train and validation errors are relatively small and have balanced bias-variance trade-off. This is not quite consistent with the number of features we got from the RFE with cross validation. However, it is not surprising that the cross validation can help to better optimize the hyperparameters while manually choosing the hyperparameters may subject to variations.
 
 
-```{r choosing-features, echo=FALSE, fig.cap="Figure 3. The train and validation error for including different numbers of features in the model .", fig.align="center"}
+```{r choosing-features, echo=FALSE, out.width='75%',fig.cap="Figure 3. The train and validation error for including different numbers of features in the model .", fig.align="center"}
 knitr::include_graphics("../analysis/figures/error.png")
 ```
 
@@ -139,7 +133,16 @@ knitr::include_graphics("../analysis/figures/confusion_matrix.png")
 
 Overall, we identified the key predictors for UFC winning. Most of these strong predictors are indicators of Striking/Grappling performance, which is consistent with the top criteria in UFC judgment. However, several other predictors are also heavily weighted by the judges. Although our model performed well on the validation data set, there is still room to improve and optimize the model to achieve better accuracy. However, the results may also reflect the inherent heterogeneity with the data set, suggesting there are big variations in the subjective judgement on different cases. Further areas to explore in optimizing the model are trying different models with hyperparameter optimization to select the best model. The analysis was based on finding the best features making logistic regression the default choice. Logistic regression is a very interpretive model that can be used to understand the weights of the features, but there may be models that are better for predicting the strongest predictors potentially in a black box model where you cannot see all the weights related to the features. The feature selection was done through RFE which removes features until the over accuracy goes down. Feature selection methods could be further explored. 
 
-Our model is also limited to our dataset. We would also like to get more data from outside the Striking/Grappling variables with more data to describe Cage/Ring control. Options for these further variables include average distance from the cage, number of times behind the opponent, number of times to cross the center line.
- 
+Our model is also limited to our dataset. We would also like to get more data from outside the Striking/Grappling variables with more data to describe aggressiveness and cage/ring control. Options for these further variables include average distance from the cage, number of times behind the opponent, number of times to cross the center line.
+
+## Supplementary Figures {#Suppl.}
+
+```{r jitter3, echo=FALSE, fig.align='center', fig.show='hold', out.width='75%', fig.cap="Supplementary Figure 1. Comparison of the distributions of the predictors between winning and losing for 'attacks to' features."}
+knitr::include_graphics(c("../analysis/figures/fig_eda_04_attacks_to_features_relationship.png"))
+```
+
+```{r jitter4, echo=FALSE, fig.align='center', fig.show='hold', out.width='75%', fig.cap="Supplementary Figure 2. Comparison of the distributions of the predictors between winning and losing for 'attacks from' features."}
+knitr::include_graphics(c("../analysis/figures/fig_eda_05_attacks_from_features_relationship.png"))
+```
  
 ## References
