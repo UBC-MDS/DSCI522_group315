@@ -3,15 +3,6 @@ UFC Judge Scoring Analysis
 DSCI 522 group 315 </br>
 2020-01-23 (updated: 2020-02-07)
 
-  - [Summary](#summary)
-  - [Introduction](#introduction)
-  - [Methods](#methods)
-      - [Data](#data)
-      - [Analysis](#analysis)
-  - [Results & Discussion](#results-discussion)
-  - [Supplementary Figures](#Suppl.)
-  - [References](#references)
-
 ## Summary
 
 In this study, we aim to assess whether the judging in the Ultimate
@@ -134,7 +125,8 @@ To explore the relationships between different features and between
 features and target, we plotted the pair-wise correlation matrix (Figure
 1). The graph showed that features sig\_str\_att, head\_att,
 total\_str\_att are highly correlated with the target. It also indicated
-there are some interaction between the features.
+there are some interaction between the
+features.
 
 <div class="figure" style="text-align: center">
 
@@ -161,7 +153,8 @@ that all the distributions of features between winning and losing were
 overlapped for some extend in different groups. However, each group has
 some features with significant difference in the means, indicating these
 features may be strong predictors for the target. The result is
-consistent with the feature-target correlation analysis.
+consistent with the feature-target correlation
+analysis.
 
 <img src="../analysis/figures/fig_eda_02_striking_features_relationship.png" width="75%" style="display: block; margin: auto;" />
 
@@ -192,7 +185,8 @@ of strikes to opponents head attempted”. Further information are needed
 to evaluate whether the four features belong to the effective
 Striking/Grappling and cage/ring Control. Without further information,
 it may suggest these are some additional factors which the judges put
-higher weights on.
+higher weights
+on.
 
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 
@@ -244,7 +238,7 @@ Total significant strikes attempted on opponent
 
 <td style="text-align:center;">
 
-Number of strikes to opponents head landed
+Number of strikes to opponents head attempted
 
 </td>
 
@@ -416,7 +410,8 @@ small and have balanced bias-variance trade-off. This is not quite
 consistent with the number of features we got from the RFE with cross
 validation. However, it is not surprising that the cross validation can
 help to better optimize the hyperparameters while manually choosing the
-hyperparameters may subject to variations.
+hyperparameters may subject to
+variations.
 
 <div class="figure" style="text-align: center">
 
@@ -436,7 +431,8 @@ selected by RFE with cross validation and compared it with a logistic
 regression model using all the features. The accuracy on the train and
 validation data sets are reasonable for both models. The accuracy for
 the model with feature selection is slightly better than the model
-without feature selection.
+without feature
+selection.
 
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 
@@ -565,7 +561,8 @@ Our model is also limited to our dataset. We would also like to get more
 data from outside the Striking/Grappling variables with more data to
 describe aggressiveness and cage/ring control. Options for these further
 variables include average distance from the cage, number of times behind
-the opponent, number of times to cross the center line.
+the opponent, number of times to cross the center
+line.
 
 ## Supplementary Figures
 
@@ -576,7 +573,8 @@ the opponent, number of times to cross the center line.
 <p class="caption">
 
 Supplementary Figure 1. Comparison of the distributions of the
-predictors between winning and losing for ‘attacks to’ features.
+predictors between winning and losing for ‘attacks to’
+features.
 
 </p>
 
@@ -597,7 +595,7 @@ predictors between winning and losing for ‘attacks from’ features.
 
 ## References
 
-<div id="refs" class="references hanging-indent">
+<div id="refs" class="references">
 
 <div id="ref-sklearn_api">
 
@@ -626,7 +624,7 @@ et.al, Barret Schloerke. 2018. *GGally: Extension to ’Ggplot2’*.
 <div id="ref-Hunter:2007">
 
 Hunter, J. D. 2007. “Matplotlib: A 2D Graphics Environment.” *Computing
-in Science & Engineering* 9 (3): 90–95.
+in Science & Engineering* 9 (3). IEEE COMPUTER SOC: 90–95.
 <https://doi.org/10.1109/MCSE.2007.55>.
 
 </div>
@@ -711,7 +709,7 @@ VanderPlas, Jacob, Brian Granger, Jeffrey Heer, Dominik Moritz, Kanit
 Wongsuphasawat, Arvind Satyanarayan, Eitan Lees, Ilia Timofeev, Ben
 Welsh, and Scott Sievert. 2018. “Altair: Interactive Statistical
 Visualizations for Python.” *Journal of Open Source Software*, December.
-<https://doi.org/10.21105/joss.01057>.
+The Open Journal. <https://doi.org/10.21105/joss.01057>.
 
 </div>
 
