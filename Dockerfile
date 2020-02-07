@@ -11,7 +11,7 @@
 # RUN CONTAINTER, OPEN BASH AND ATTACH WORKING DIRECTORY:
 #   docker run -it --rm -v $(pwd):/root/ufc dsci-522-ufc bin/bash
 # RUN UFC ANALYSIS
-#   docker run -it --rm -v $(pwd):/root/ufc dsci-522-ufc cd root/ufc make all
+#   docker run --rm -v $(pwd):/root/ufc dsci-522-ufc cd root/ufc make all
 
 FROM rocker/tidyverse
 
@@ -26,6 +26,7 @@ RUN Rscript -e "install.packages('GGally')"
 RUN Rscript -e "install.packages('janitor')"
 RUN Rscript -e "install.packages('kableExtra')"
 RUN Rscript -e "install.packages('tidyselect')"
+RUN Rscript -e "install.packages('ggridges')"
 
 
 #############################

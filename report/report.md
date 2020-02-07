@@ -1,7 +1,7 @@
 UFC Judge Scoring Analysis
 ================
 DSCI 522 group 315 </br>
-2020-01-23 (updated: 2020-02-01)
+2020-01-23 (updated: 2020-02-06)
 
 ## Summary
 
@@ -91,6 +91,8 @@ analysis:
 | sig\_str\_pct      | Percent of significant strikes landed on opponent       | Striking     |
 | sig\_str\_landed   | Total significant strikes landed on opponent            | Striking     |
 
+Table 0. Data feature names and descriptions.
+
 ### Analysis
 
 The logistic regression algorithm was used to build a regression model
@@ -119,17 +121,13 @@ total\_str\_att are highly correlated with the target. It also indicated
 there are some interaction between the
 features.
 
-<div class="figure" style="text-align: center">
+<img src="../analysis/figures/fig_eda_01_corplot.png" title="Figure 1. Correlation matrix for features and target." alt="Figure 1. Correlation matrix for features and target." style="display: block; margin: auto;" />
 
-<img src="../analysis/figures/fig_eda_01_corplot.png" alt="Figure 1. Correlation matrix for features and target." width="2100" />
-
-<p class="caption">
-
-Figure 1. Correlation matrix for features and target.
-
-</p>
-
-</div>
+*Note the correct way to read this plot is to: (1) Choose first feature
+of interest. (2) Find the column of squares that the features sits on
+top of. (3) Choose a second features of interest. (4) Find the the
+square where the column from the first feature and the row of the second
+feature intersect. This is the correlation between the two features*
 
 We categorized the features into four groups and in each group we
 explored the relationships between features and target (Figure 2). In
@@ -147,20 +145,7 @@ analysis.
 
 <img src="../analysis/figures/fig_eda_04_attacks_to_features_relationship.png" width="75%" style="display: block; margin: auto;" />
 
-<div class="figure" style="text-align: center">
-
-<img src="../analysis/figures/fig_eda_05_attacks_from_features_relationship.png" alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. From top to bottom: striking features, ground features, attacks-to features, attacks-from features.The feature explanations can be found in method section." width="75%" />
-
-<p class="caption">
-
-Figure 2. Comparison of the distributions of the predictors between
-winning and losing in different groups. From top to bottom: striking
-features, ground features, attacks-to features, attacks-from
-features.The feature explanations can be found in method section.
-
-</p>
-
-</div>
+<img src="../analysis/figures/fig_eda_05_attacks_from_features_relationship.png" title="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. From top to bottom: striking features, ground features, attacks-to features, attacks-from features.The feature explanations can be found in method section." alt="Figure 2. Comparison of the distributions of the predictors between winning and losing in different groups. From top to bottom: striking features, ground features, attacks-to features, attacks-from features.The feature explanations can be found in method section." width="75%" style="display: block; margin: auto;" />
 
 We chose logistic regression model to assign weights to all the features
 and used recursive feature elimination (RFE) with cross validation
@@ -403,18 +388,7 @@ help to better optimize the hyperparameters while manually choosing the
 hyperparameters may subject to
 variations.
 
-<div class="figure" style="text-align: center">
-
-<img src="../analysis/figures/error.png" alt="Figure 3. The train and validation error for including different numbers of features in the model ." width="10980" />
-
-<p class="caption">
-
-Figure 3. The train and validation error for including different numbers
-of features in the model .
-
-</p>
-
-</div>
+<img src="../analysis/figures/error.png" title="Figure 3. The train and validation error for including different numbers of features in the model ." alt="Figure 3. The train and validation error for including different numbers of features in the model ." style="display: block; margin: auto;" />
 
 We built our final logistic regression model using the 11 features
 selected by RFE with cross validation and compared it with a logistic
@@ -528,18 +502,7 @@ predicted 368 out of 446 validation cases and incorrectly predicted 78
 cases with 40 being false positive and 38 false negative cases (Figure
 4).
 
-<div class="figure" style="text-align: center">
-
-<img src="../analysis/figures/confusion_matrix.png" alt="Figure 4. Confusion matrix of model performance on test data on validation data set." width="60%" />
-
-<p class="caption">
-
-Figure 4. Confusion matrix of model performance on test data on
-validation data set.
-
-</p>
-
-</div>
+<img src="../analysis/figures/confusion_matrix.png" title="Figure 4. Confusion matrix of model performance on test data on validation data set." alt="Figure 4. Confusion matrix of model performance on test data on validation data set." width="60%" style="display: block; margin: auto;" />
 
 Overall, we identified the key predictors for UFC winning. Most of these
 strong predictors are indicators of Striking/Grappling performance,
