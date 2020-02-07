@@ -137,7 +137,16 @@ for PC users.
       - knitr==1.27.2
       - testthat == 2.2.1
       - tidyselect == 1.1.0
-      - ggridges == 0.5.2
+      - ggridges ==
+0.5.2
+
+## Makefile Dependacy Graph
+
+<img src="https://github.com/UBC-MDS/DSCI522_group315/blob/master/Makefile.png?raw=true" alt="Makefile Graph" height="300" width="2000">
+
+View the
+[Makefile.png](https://github.com/UBC-MDS/DSCI522_group315/blob/master/Makefile.png)
+larger version of the Makefile Dependancy Graph.
 
 ## References
 
