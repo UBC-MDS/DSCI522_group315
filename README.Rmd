@@ -127,6 +127,6 @@ You need to include the ChromeDriver location in your system PATH. Please follow
 ## Makefile Dependency Graph
 ![](https://github.com/UBC-MDS/DSCI522_group315/blob/master/Makefile.png?raw=true)
 
-View the [Makefile.png](https://github.com/UBC-MDS/DSCI522_group315/blob/master/Makefile.png) larger version of the Makefile Dependency Graph.
+View the [Makefile.png](https://github.com/UBC-MDS/DSCI522_group315/blob/master/Makefile.png) for a larger version of the Makefile Dependency Graph.
 
 ## References

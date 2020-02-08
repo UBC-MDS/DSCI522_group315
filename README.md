@@ -146,7 +146,7 @@ for PC users.
 
 View the
 [Makefile.png](https://github.com/UBC-MDS/DSCI522_group315/blob/master/Makefile.png)
-larger version of the Makefile Dependency Graph.
+for a larger version of the Makefile Dependency Graph.
 
 ## References
 
