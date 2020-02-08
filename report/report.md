@@ -1,7 +1,7 @@
 UFC Judge Scoring Analysis
 ================
 DSCI 522 group 315 </br>
-2020-01-23 (updated: 2020-02-07)
+2020-01-23 (updated: 2020-02-08)
 
 ## Summary
 
@@ -110,13 +110,13 @@ predict on the validation data set. The R and Python programming
 languages (R Core Team 2019; Van Rossum and Drake 2009) and the
 following R and Python packages were used to perform the analysis:
 docopt (de Jonge 2018), janitor (Sam Firke 2020), tidyverse (Wickham
-2017), GGally (et.al 2018), ggridges (Wilke 2020), docopt (Keleshev
-2014), os (Van Rossum and Drake 2009), requests (Reitz 2019), Pandas
-(McKinney 2010), numpy (Oliphant 2006), altair (VanderPlas et al. 2018),
-matplotlib (Hunter 2007), selenium (Muthukadan 2019), scikit-learn
-(Buitinck et al. 2013), chromedriver-binary (Kaiser 2019). The scripts
-for generating the analysis and the report together with all the
-relevant information can be found
+2017), GGally (Schloerke et al. 2018), ggridges (Wilke 2020), docopt
+(Keleshev 2014), os (Van Rossum and Drake 2009), requests (Reitz 2019),
+Pandas (McKinney 2010), numpy (Oliphant 2006), altair (VanderPlas et al.
+2018), matplotlib (Hunter 2007), selenium (Muthukadan 2019),
+scikit-learn (Buitinck et al. 2013), chromedriver-binary (Kaiser 2019).
+The scripts for generating the analysis and the report together with all
+the relevant information can be found
 [here](https://github.com/UBC-MDS/DSCI522_group315).
 
 ## Results & Discussion
@@ -614,13 +614,6 @@ Language*. <https://CRAN.R-project.org/package=docopt>.
 
 </div>
 
-<div id="ref-GGally">
-
-et.al, Barret Schloerke. 2018. *GGally: Extension to ’Ggplot2’*.
-<https://CRAN.R-project.org/package=GGally>.
-
-</div>
-
 <div id="ref-Hunter:2007">
 
 Hunter, J. D. 2007. “Matplotlib: A 2D Graphics Environment.” *Computing
@@ -692,6 +685,15 @@ Reitz, Kenneth. 2019. *Requests: HTTP for Humans*.
 Sam Firke, Chris Haid, Bill Denney. 2020. *Janitor: Simple Tools for
 Examining and Cleaning Dirty Data*.
 <https://CRAN.R-project.org/package=janitor>.
+
+</div>
+
+<div id="ref-GGally">
+
+Schloerke, Barret, Jason Crowley, Di Cook, Heike Hofmann, Hadley
+Wickham, Moritz Marbach, Edwin Thoen, Amos Elberg, and Joseph
+Larmarange. 2018. *GGally: Extension to ’Ggplot2’*.
+<https://CRAN.R-project.org/package=GGally>.
 
 </div>
 
