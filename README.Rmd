@@ -124,9 +124,9 @@ You need to include the ChromeDriver location in your system PATH. Please follow
   - tidyselect == 1.1.0
   - ggridges == 0.5.2
 
-## Makefile Dependacy Graph
+## Makefile Dependency Graph
 ![](https://github.com/UBC-MDS/DSCI522_group315/blob/master/Makefile.png?raw=true)
 
-View the [Makefile.png](https://github.com/UBC-MDS/DSCI522_group315/blob/master/Makefile.png) larger version of the Makefile Dependancy Graph.
+View the [Makefile.png](https://github.com/UBC-MDS/DSCI522_group315/blob/master/Makefile.png) larger version of the Makefile Dependency Graph.
 
 ## References

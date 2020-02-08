@@ -140,13 +140,13 @@ for PC users.
       - ggridges ==
 0.5.2
 
-## Makefile Dependacy Graph
+## Makefile Dependency Graph
 
 ![](https://github.com/UBC-MDS/DSCI522_group315/blob/master/Makefile.png?raw=true)
 
 View the
 [Makefile.png](https://github.com/UBC-MDS/DSCI522_group315/blob/master/Makefile.png)
-larger version of the Makefile Dependancy Graph.
+larger version of the Makefile Dependency Graph.
 
 ## References
 
