@@ -98,13 +98,14 @@ make_class_count_bar_plot <- function(df) {
          y = "Count")
 }
 
-#' Make box jitter plot
+#' Make ridge plot
 #' 
-#' Creates jitter plot overlayed with a box plot. For each feature included in
+#' Creates ridge plot. For each feature included in
 #' ... the plot is faceted
 #'
 #' @param df Dataframe containing features (tibble)
 #' @param response The target or y value (string or column name)
+#' @param category The group that the features belong to
 #' @param ... Additional column names
 #'
 #' @return ggplot object
