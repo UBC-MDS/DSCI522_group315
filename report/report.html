@@ -601,7 +601,7 @@ body {
 <body>
 
 <h1 id="ufc-judge-scoring-analysis">UFC Judge Scoring Analysis</h1>
-<p>DSCI 522 group 315 </br> 2020-01-23 (updated: 2020-02-07)</p>
+<p>DSCI 522 group 315 </br> 2020-01-23 (updated: 2020-02-08)</p>
 <h2 id="summary">Summary</h2>
 <p>In this study, we aim to assess whether the judging in the Ultimate Fighting Championship (UFC) is consistent with the official rules and guidance. To answer this question, we need to identify the key predictors for winning determined by the judges based on the performance and evaluate whether these predictors are consistent with the priorities of round assessments according to the official rules. We built a regression model using the logistic regression algorithm to assign weights to the features and used recursive feature elimination (RFE) approach to identify the strong predictors. Among the selected 11 features by RFE, 7 features are related to Striking/Grappling performance which should be considered as the top factor in judgment based on the UFC official rules. Our final logistic regression model using these selected features performed well on validation data set with accuracy score of 0.83. It correctly predicted 368 out of 446 test cases and incorrectly predicted 78 cases with 40 being false positive and 38 false negative. Our results showed that the judges generally comply to the UFC rules and put weights on some additional factors.</p>
 <h2 id="introduction">Introduction</h2>
@@ -744,7 +744,7 @@ body {
 </table>
 <p>Table 0. Data feature names and descriptions.</p>
 <h3 id="analysis">Analysis</h3>
-<p>The logistic regression algorithm was used to build a regression model to assign weights to all the features in the pre-processed data. The features included in the final model were selected using recursive feature elimination (RFE) approach with cross validation. A final regression model was built using these selected features and used to predict on the validation data set. The R and Python programming languages (R Core Team 2019; Van Rossum and Drake 2009) and the following R and Python packages were used to perform the analysis: docopt (de Jonge 2018), janitor (Sam Firke 2020), tidyverse (Wickham 2017), GGally (et.al 2018), ggridges (Wilke 2020), docopt (Keleshev 2014), os (Van Rossum and Drake 2009), requests (Reitz 2019), Pandas (McKinney 2010), numpy (Oliphant 2006), altair (VanderPlas et al. 2018), matplotlib (Hunter 2007), selenium (Muthukadan 2019), scikit-learn (Buitinck et al. 2013), chromedriver-binary (Kaiser 2019). The scripts for generating the analysis and the report together with all the relevant information can be found <a href="https://github.com/UBC-MDS/DSCI522_group315">here</a>.</p>
+<p>The logistic regression algorithm was used to build a regression model to assign weights to all the features in the pre-processed data. The features included in the final model were selected using recursive feature elimination (RFE) approach with cross validation. A final regression model was built using these selected features and used to predict on the validation data set. The R and Python programming languages (R Core Team 2019; Van Rossum and Drake 2009) and the following R and Python packages were used to perform the analysis: docopt (de Jonge 2018), janitor (Sam Firke 2020), tidyverse (Wickham 2017), GGally (Schloerke et al. 2018), ggridges (Wilke 2020), docopt (Keleshev 2014), os (Van Rossum and Drake 2009), requests (Reitz 2019), Pandas (McKinney 2010), numpy (Oliphant 2006), altair (VanderPlas et al. 2018), matplotlib (Hunter 2007), selenium (Muthukadan 2019), scikit-learn (Buitinck et al. 2013), chromedriver-binary (Kaiser 2019). The scripts for generating the analysis and the report together with all the relevant information can be found <a href="https://github.com/UBC-MDS/DSCI522_group315">here</a>.</p>
 <h2 id="results-&amp;-discussion">Results &amp; Discussion</h2>
 <p>To explore the relationships between different features and between features and target, we plotted the pair-wise correlation matrix (Figure 1). The graph showed that features sig_str_att, head_att, total_str_att are highly correlated with the target. It also indicated there are some interaction between the features.</p>
 <div class="figure" style="text-align: center">
@@ -1097,11 +1097,6 @@ body {
 <p>de Jonge, Edwin. 2018. <em>Docopt: Command-Line Interface Specification Language</em>. <a href="https://CRAN.R-project.org/package=docopt">https://CRAN.R-project.org/package=docopt</a>.</p>
 </div>
 
-<div id="ref-GGally">
-
-<p>et.al, Barret Schloerke. 2018. <em>GGally: Extension to ’Ggplot2’</em>. <a href="https://CRAN.R-project.org/package=GGally">https://CRAN.R-project.org/package=GGally</a>.</p>
-</div>
-
 <div id="ref-Hunter:2007">
 
 <p>Hunter, J. D. 2007. “Matplotlib: A 2D Graphics Environment.” <em>Computing in Science &amp; Engineering</em> 9 (3). IEEE COMPUTER SOC: 90–95. <a href="https://doi.org/10.1109/MCSE.2007.55">https://doi.org/10.1109/MCSE.2007.55</a>.</p>
@@ -1150,6 +1145,11 @@ body {
 <div id="ref-janitor">
 
 <p>Sam Firke, Chris Haid, Bill Denney. 2020. <em>Janitor: Simple Tools for Examining and Cleaning Dirty Data</em>. <a href="https://CRAN.R-project.org/package=janitor">https://CRAN.R-project.org/package=janitor</a>.</p>
+</div>
+
+<div id="ref-GGally">
+
+<p>Schloerke, Barret, Jason Crowley, Di Cook, Heike Hofmann, Hadley Wickham, Moritz Marbach, Edwin Thoen, Amos Elberg, and Joseph Larmarange. 2018. <em>GGally: Extension to ’Ggplot2’</em>. <a href="https://CRAN.R-project.org/package=GGally">https://CRAN.R-project.org/package=GGally</a>.</p>
 </div>
 
 <div id="ref-MMA-judging-criteria">
